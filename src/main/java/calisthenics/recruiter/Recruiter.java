@@ -1,13 +1,14 @@
 package calisthenics.recruiter;
 
 import calisthenics.job.Job;
+import calisthenics.job.JobListing;
 
 public class Recruiter {
 
-    private Job.JobListing listing;
+    private JobListing listing;
     private RecruiterId id;
 
-    public Recruiter(Job.JobListing listing) {
+    public Recruiter(JobListing listing) {
         this.listing = listing;
         id = new RecruiterId();
     }
@@ -20,7 +21,7 @@ public class Recruiter {
         return id;
     }
 
-    public Job.JobListing JobPosts() {
+    public JobListing JobPosts() {
         return listing.JobsByRecruiterId(id);
     }
 }

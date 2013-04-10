@@ -1,6 +1,7 @@
+package calisthenics.recruiter;
+
 import calisthenics.job.Job;
-import calisthenics.recruiter.Recruiter;
-import calisthenics.recruiter.RecruiterId;
+import calisthenics.job.JobListing;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,13 +16,13 @@ public class RecruiterTest {
 
     private List<Job> jobList;
     private Job job;
-    private Job.JobListing listing;
+    private JobListing listing;
 
 
     @Before
     public void setUp() {
         jobList = new ArrayList<Job>();
-        listing = new Job.JobListing(jobList);
+        listing = new JobListing(jobList);
     }
 
     @Test
@@ -50,8 +51,8 @@ public class RecruiterTest {
 
         List<Job> testJobList = new ArrayList<Job>();
 
-        Job.JobListing expectedFirstRecruitersJobListing = new Job.JobListing(testJobList);
-        Job.JobListing actualFirstRecruitersJobListing = firstRecruiter.JobPosts();
+        JobListing expectedFirstRecruitersJobListing = new JobListing(testJobList);
+        JobListing actualFirstRecruitersJobListing = firstRecruiter.JobPosts();
 
         expectedFirstRecruitersJobListing.AddJob(job1);
 
