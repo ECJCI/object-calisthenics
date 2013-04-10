@@ -14,7 +14,7 @@ public class Recruiter {
     }
 
     public void Post(Job job) {
-       listing.AddJob(job);
+       listing.addJob(job);
     }
 
     public RecruiterId Id() {
@@ -22,7 +22,7 @@ public class Recruiter {
     }
 
     public JobListing JobPosts() {
-        return listing.JobsByRecruiterId(id);
+        return listing.jobsByRecruiterId(id);
     }
 }
 

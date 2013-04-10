@@ -17,18 +17,18 @@ public class JobListing {
         return jobs.size();
     }
 
-    public void AddJob(Job job) {
+    public void addJob(Job job) {
         jobs.add(job);
     }
 
-    public JobListing JobsByRecruiterId(final RecruiterId id) {
+    public JobListing jobsByRecruiterId(final RecruiterId id) {
 
         Predicate<Job> belongsToRecruiter = new BelongsToRecruiter(id);
         Collection<Job> jobsWithSpecificId = Collections2.filter(jobs, belongsToRecruiter) ;
         return new JobListing(jobsWithSpecificId);
     }
 
-    public boolean IsJobListed(Job job) {
+    public boolean isJobListed(Job job) {
         return jobs.contains(job);
     }
 
@@ -41,7 +41,7 @@ public class JobListing {
 
         @Override
         public boolean apply(Job job) {
-            return job.getId().equals(id);
+            return job.getRecruiterId().equals(id);
         }
     }
 }

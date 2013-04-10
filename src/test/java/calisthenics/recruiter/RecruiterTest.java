@@ -51,7 +51,7 @@ public class RecruiterTest {
 
         JobListing firstRecruitersJobListing = firstRecruiter.JobPosts();
 
-        assertTrue(firstRecruitersJobListing.IsJobListed(job1));
-        assertFalse(firstRecruitersJobListing.IsJobListed(job2));
+        assertTrue(firstRecruitersJobListing.isJobListed(job1));
+        assertFalse(firstRecruitersJobListing.isJobListed(job2));
     }
 }
