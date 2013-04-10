@@ -13,7 +13,7 @@ public class Recruiter {
         id = new RecruiterId();
     }
 
-    public void Post(Job job) {
+    public void post(Job job) {
        listing.addJob(job);
     }
 

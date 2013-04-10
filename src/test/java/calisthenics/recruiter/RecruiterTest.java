@@ -1,11 +1,14 @@
 package calisthenics.recruiter;
 
+import calisthenics.job.Application;
+import calisthenics.job.ApplicationListing;
 import calisthenics.job.Job;
 import calisthenics.job.JobListing;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.Assert.assertFalse;
@@ -17,12 +20,16 @@ public class RecruiterTest {
     private List<Job> jobList;
     private Job job;
     private JobListing listing;
+    private ApplicationListing applicationListing;
+    private Collection<Application> applications;
 
 
     @Before
     public void setUp() {
         jobList = new ArrayList<Job>();
         listing = new JobListing(jobList);
+        applications = new ArrayList<Application>();
+        applicationListing = new ApplicationListing(applications);
     }
 
     @Test
@@ -30,8 +37,8 @@ public class RecruiterTest {
         Recruiter recruiter = new Recruiter(listing);
         RecruiterId id = recruiter.Id();
 
-        job = new Job(id);
-        recruiter.Post(job);
+        job = new Job(id, applicationListing);
+        recruiter.post(job);
         assertTrue(listing.PostCount() > 0);
     }
 
@@ -43,11 +50,11 @@ public class RecruiterTest {
         RecruiterId firstRecruiterId = firstRecruiter.Id();
         RecruiterId secondRecruiterId = secondRecruiter.Id();
 
-        Job job1 = new Job(firstRecruiterId);
-        Job job2 = new Job(secondRecruiterId);
+        Job job1 = new Job(firstRecruiterId, applicationListing);
+        Job job2 = new Job(secondRecruiterId, applicationListing);
 
-        firstRecruiter.Post(job1);
-        secondRecruiter.Post(job2);
+        firstRecruiter.post(job1);
+        secondRecruiter.post(job2);
 
         JobListing firstRecruitersJobListing = firstRecruiter.JobPosts();
 
