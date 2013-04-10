@@ -1,1 +1,16 @@
+# Java
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# maven
 target/
+
+ Intellij project files
+*.iml
+*.ipr
+*.iws
+.idea/
