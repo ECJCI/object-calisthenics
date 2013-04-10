@@ -2,8 +2,6 @@ package calisthenics.job;
 
 import calisthenics.recruiter.RecruiterId;
 
-import java.util.List;
-
 /**
  * Created with IntelliJ IDEA.
  * User: ejones
@@ -16,6 +14,10 @@ public class Job {
 
     public Job(RecruiterId id) {
         this.id = id;
+    }
+
+    public RecruiterId getId() {
+        return id;
     }
 }
 

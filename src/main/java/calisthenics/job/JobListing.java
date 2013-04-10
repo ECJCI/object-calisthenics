@@ -1,14 +1,15 @@
 package calisthenics.job;
 
 import calisthenics.recruiter.RecruiterId;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 public class JobListing {
-    private List<Job> jobs;
+    private Collection<Job> jobs;
 
-    public JobListing(List<Job> jobList) {
+    public JobListing(Collection<Job> jobList) {
         this.jobs = jobList;
     }
 
@@ -20,8 +21,27 @@ public class JobListing {
         jobs.add(job);
     }
 
-    public JobListing JobsByRecruiterId(RecruiterId id) {
-        JobListing jobsWithSpecificId = new JobListing(new ArrayList<Job>());
-        return jobsWithSpecificId;
+    public JobListing JobsByRecruiterId(final RecruiterId id) {
+
+        Predicate<Job> belongsToRecruiter = new BelongsToRecruiter(id);
+        Collection<Job> jobsWithSpecificId = Collections2.filter(jobs, belongsToRecruiter) ;
+        return new JobListing(jobsWithSpecificId);
+    }
+
+    public boolean IsJobListed(Job job) {
+        return jobs.contains(job);
+    }
+
+    private class BelongsToRecruiter implements Predicate<Job>{
+        private final RecruiterId id;
+
+        public BelongsToRecruiter(RecruiterId id) {
+            this.id = id;
+        }
+
+        @Override
+        public boolean apply(Job job) {
+            return job.getId().equals(id);
+        }
     }
 }

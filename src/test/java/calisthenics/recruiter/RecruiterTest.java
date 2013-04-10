@@ -8,7 +8,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 
@@ -49,13 +49,9 @@ public class RecruiterTest {
         firstRecruiter.Post(job1);
         secondRecruiter.Post(job2);
 
-        List<Job> testJobList = new ArrayList<Job>();
+        JobListing firstRecruitersJobListing = firstRecruiter.JobPosts();
 
-        JobListing expectedFirstRecruitersJobListing = new JobListing(testJobList);
-        JobListing actualFirstRecruitersJobListing = firstRecruiter.JobPosts();
-
-        expectedFirstRecruitersJobListing.AddJob(job1);
-
-        assertEquals(expectedFirstRecruitersJobListing, actualFirstRecruitersJobListing);
+        assertTrue(firstRecruitersJobListing.IsJobListed(job1));
+        assertFalse(firstRecruitersJobListing.IsJobListed(job2));
     }
 }
