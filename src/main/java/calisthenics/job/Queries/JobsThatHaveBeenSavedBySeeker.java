@@ -1,4 +1,4 @@
-package calisthenics.job.Queries;
+package calisthenics.job.queries;
 
 import calisthenics.job.Job;
 import calisthenics.jobseeker.SeekerId;

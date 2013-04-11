@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class JobSeekerTest {
@@ -28,6 +29,7 @@ public class JobSeekerTest {
     private ApplicationListing applicationListing;
     private Collection<Application> applications;
     private JobSeekerListing seekersWhoHaveSavedJob;
+    private Application application;
 
     @Before
     public void setUp() throws Exception {
@@ -52,6 +54,7 @@ public class JobSeekerTest {
         job = recruiter.createJob();
 
         seeker = new JobSeeker(listing);
+        application = seeker.createApplication();
     }
 
     @Test
@@ -65,7 +68,7 @@ public class JobSeekerTest {
 
     @Test
     public void testJobSeekersCanApplyToJobsPostedByRecruiters(){
-       Application application = new Application();
+       Application application = seeker.createApplication();
        recruiter.post(job);
 
        seeker.applyToJob(job, application);
@@ -83,10 +86,24 @@ public class JobSeekerTest {
 
     @Test
     public void testJobSeekersShouldBeAbleToSeeAListingOfTheJobsForWhichTheyHaveApplied(){
+        Job jobAppliedTo = job;
+        Job jobNotAppliedTo = recruiter.createJob();
+
         //recruiter posts a job
-        recruiter.post(job);
+        recruiter.post(jobAppliedTo);
+        recruiter.post(jobNotAppliedTo);
 
         //seeker applies to job
-        //seeker.applyToJob()
+        seeker.applyToJob(job,application);
+
+        //seeker gets a listing of jobs applied to
+        JobListing jobsAppliedTo = seeker.jobsAppliedTo();
+
+        //job applied to should be in the job listing
+        assertTrue(jobsAppliedTo.isJobListed(jobAppliedTo));
+
+        //job not applied to should not be in the job listing
+        assertFalse(jobsAppliedTo.isJobListed(jobNotAppliedTo));
     }
+
 }

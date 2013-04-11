@@ -33,4 +33,8 @@ public class Job {
     public void markAsSavedBySeeker(SeekerId seekerId) {
         jobInformation.addSeekerId(seekerId);
     }
+
+    public boolean hasSeekerAppliedToJob(SeekerId seekerId) {
+        return applicationListing.hasApplicationFromSeeker(seekerId);
+    }
 }

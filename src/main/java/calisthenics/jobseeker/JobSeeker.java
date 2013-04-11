@@ -29,4 +29,12 @@ public class JobSeeker {
     public void applyToJob(Job job, Application application) {
         job.addApplication(application);
     }
+
+    public JobListing jobsAppliedTo() {
+        return listing.jobsAppliedToBySeeker(seekerId);
+    }
+
+    public Application createApplication() {
+        return new Application(seekerId);
+    }
 }
