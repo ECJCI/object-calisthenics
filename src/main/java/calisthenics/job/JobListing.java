@@ -1,5 +1,8 @@
 package calisthenics.job;
 
+import calisthenics.job.Queries.JobsCreatedByRecruiter;
+import calisthenics.job.Queries.JobsThatHaveBeenSavedBySeeker;
+import calisthenics.jobseeker.SeekerId;
 import calisthenics.recruiter.RecruiterId;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
@@ -23,7 +26,7 @@ public class JobListing {
 
     public JobListing jobsByRecruiterId(RecruiterId id) {
 
-        Predicate<Job> belongsToRecruiter = new BelongsToRecruiter(id);
+        Predicate<Job> belongsToRecruiter = new JobsCreatedByRecruiter(id);
         Collection<Job> jobsWithSpecificId = Collections2.filter(jobs, belongsToRecruiter) ;
         return new JobListing(jobsWithSpecificId);
     }
@@ -32,15 +35,9 @@ public class JobListing {
         return jobs.contains(job);
     }
 
-    private class BelongsToRecruiter implements Predicate<Job>{
-        private final RecruiterId id;
-
-        public BelongsToRecruiter(RecruiterId id) {
-            this.id = id;
-        }
-        @Override
-        public boolean apply(Job job) {
-             return job.doesJobBelongToRecruiter(id);
-        }
+    public JobListing savedJobs(SeekerId seekerId) {
+        Predicate<Job> isJobSaved = new JobsThatHaveBeenSavedBySeeker(seekerId);
+        Collection<Job> jobsThatHaveBeenSavedBySeeker = Collections2.filter(jobs, isJobSaved);
+        return new JobListing(jobsThatHaveBeenSavedBySeeker);
     }
 }

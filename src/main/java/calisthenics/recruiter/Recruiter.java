@@ -3,9 +3,11 @@ package calisthenics.recruiter;
 import calisthenics.application.Application;
 import calisthenics.application.ApplicationListing;
 import calisthenics.job.*;
+import calisthenics.jobseeker.SeekerId;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 public class Recruiter {
 
@@ -32,9 +34,9 @@ public class Recruiter {
     public Job createJob() {
         Collection<Application> applications = new ArrayList<Application>();
         ApplicationListing applicationListing = new ApplicationListing(applications);
+        HashSet<SeekerId> seekersWhoHaveSavedJob = new HashSet<SeekerId>();
 
-        JobInformation jobInformation = new JobInformation(id);
-
+        JobInformation jobInformation = new JobInformation(id, seekersWhoHaveSavedJob);
         Job job = new Job(jobInformation, applicationListing);
         return job;
     }

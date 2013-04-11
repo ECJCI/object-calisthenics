@@ -5,18 +5,25 @@ import calisthenics.job.Job;
 import calisthenics.job.JobListing;
 
 public class JobSeeker {
-    private JobListing savedJobs;
+    private JobListing listing;
+    private final SeekerId seekerId;
 
-    public JobSeeker(JobListing savedJobs) {
-        this.savedJobs = savedJobs;
+    public JobSeeker(JobListing listing) {
+        this.listing = listing;
+        seekerId = new SeekerId();
     }
 
     public void saveJob(Job job) {
-       savedJobs.addJob(job);
+       job.markAsSavedBySeeker(seekerId);
     }
 
     public boolean isJobSaved(Job job) {
-        return savedJobs.isJobListed(job);
+        return job.isJobSaved(seekerId);
+    }
+
+    public JobListing savedJobs()
+    {
+       return listing.savedJobs(seekerId);
     }
 
     public void applyToJob(Job job, Application application) {

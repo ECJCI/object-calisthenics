@@ -2,6 +2,7 @@ package calisthenics.job;
 
 import calisthenics.application.Application;
 import calisthenics.application.ApplicationListing;
+import calisthenics.jobseeker.SeekerId;
 import calisthenics.recruiter.RecruiterId;
 
 public class Job {
@@ -24,5 +25,13 @@ public class Job {
 
     public boolean hasApplication(Application application) {
         return applicationListing.containsApplication(application);
+    }
+
+    public boolean isJobSaved(SeekerId seekerId) {
+        return jobInformation.isJobSaved(seekerId);
+    }
+
+    public void markAsSavedBySeeker(SeekerId seekerId) {
+        jobInformation.addSeekerId(seekerId);
     }
 }

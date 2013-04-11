@@ -43,7 +43,7 @@ public class JobSeekerTest {
 
         job = recruiter.createJob();
 
-        seeker = new JobSeeker(savedJobsListing);
+        seeker = new JobSeeker(listing);
     }
 
     @Test
@@ -62,5 +62,14 @@ public class JobSeekerTest {
 
        seeker.applyToJob(job, application);
        assertTrue(job.hasApplication(application));
+    }
+
+    @Test
+    public void testJobSeekersShouldBeAbleToSeeAListingOfJobsTheyHaveSaved(){
+        recruiter.post(job);
+        seeker.saveJob(job);
+        JobListing savedJobs = seeker.savedJobs();
+
+        assertTrue(savedJobs.isJobListed(job));
     }
 }
