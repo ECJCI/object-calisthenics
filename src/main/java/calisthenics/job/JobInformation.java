@@ -9,8 +9,8 @@ public class JobInformation {
         this.recruiterId = recruiterId;
     }
 
-    public boolean doesJobBelongToRecruiter(JobInformation jobInfo, RecruiterId id)
+    public boolean doesJobBelongToRecruiter(RecruiterId id)
     {
-        return jobInfo.recruiterId.equals(id);
+        return recruiterId.equals(id);
     }
 }

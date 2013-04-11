@@ -40,7 +40,7 @@ public class JobListing {
         }
         @Override
         public boolean apply(Job job) {
-             return job.doesJobBelongToRecruiter(job, id);
+             return job.doesJobBelongToRecruiter(id);
         }
     }
 }

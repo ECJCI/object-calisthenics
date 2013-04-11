@@ -11,9 +11,9 @@ public class Job {
         this.jobInformation = jobInformation;
     }
 
-    public boolean doesJobBelongToRecruiter(Job job, RecruiterId id)
+    public boolean doesJobBelongToRecruiter(RecruiterId id)
     {
-        return jobInformation.doesJobBelongToRecruiter(job.jobInformation, id);
+        return jobInformation.doesJobBelongToRecruiter(id);
     }
 
     public void addApplication(Application application) {
