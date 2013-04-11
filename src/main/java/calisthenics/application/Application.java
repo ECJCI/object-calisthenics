@@ -1,15 +1,19 @@
 package calisthenics.application;
 
-import calisthenics.jobseeker.SeekerId;
+import calisthenics.jobseeker.JobSeeker;
 
 public class Application {
-    private SeekerId seekerId;
+    private JobSeeker jobSeeker;
 
-    public Application(SeekerId seekerId) {
-        this.seekerId = seekerId;
+    public Application(JobSeeker jobSeeker) {
+        this.jobSeeker = jobSeeker;
     }
 
-    public boolean createdBySeeker(SeekerId seekerId) {
-        return this.seekerId.equals(seekerId);
+    public boolean createdBySeeker(JobSeeker jobSeeker) {
+        return this.jobSeeker.equals(jobSeeker);
+    }
+
+    public JobSeeker getJobSeekerId() {
+        return jobSeeker;
     }
 }

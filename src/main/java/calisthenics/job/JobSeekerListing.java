@@ -1,21 +1,27 @@
 package calisthenics.job;
 
-import calisthenics.jobseeker.SeekerId;
+import calisthenics.jobseeker.JobSeeker;
 
+import java.util.Collection;
 import java.util.HashSet;
 
 public class JobSeekerListing {
-    private HashSet<SeekerId> seekersWhoSavedJob;
+    private Collection<JobSeeker> seekersWhoSavedJob;
 
-    public JobSeekerListing(HashSet<SeekerId> seekersWhoSavedJob) {
+    public JobSeekerListing(Collection<JobSeeker> seekersWhoSavedJob) {
         this.seekersWhoSavedJob = seekersWhoSavedJob;
     }
 
-    public boolean isJobSeekerListed(SeekerId seekerId) {
-        return seekersWhoSavedJob.contains(seekerId);
+    public boolean isJobSeekerListed(JobSeeker jobSeeker) {
+        return seekersWhoSavedJob.contains(jobSeeker);
     }
 
-    public void addJobSeeker(SeekerId seekerId) {
-        seekersWhoSavedJob.add(seekerId);
+    public void addJobSeeker(JobSeeker jobSeeker) {
+        seekersWhoSavedJob.add(jobSeeker);
+    }
+
+    public static JobSeekerListing empty() {
+        HashSet<JobSeeker> emptySet = new HashSet<JobSeeker>();
+        return new JobSeekerListing(emptySet);
     }
 }

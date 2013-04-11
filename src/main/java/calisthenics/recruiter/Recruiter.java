@@ -2,8 +2,11 @@ package calisthenics.recruiter;
 
 import calisthenics.application.Application;
 import calisthenics.application.ApplicationListing;
-import calisthenics.job.*;
-import calisthenics.jobseeker.SeekerId;
+import calisthenics.job.Job;
+import calisthenics.job.JobInformation;
+import calisthenics.job.JobListing;
+import calisthenics.job.JobSeekerListing;
+import calisthenics.jobseeker.JobSeeker;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,11 +37,19 @@ public class Recruiter {
     public Job createJob() {
         Collection<Application> applications = new ArrayList<Application>();
         ApplicationListing applicationListing = new ApplicationListing(applications);
-        HashSet<SeekerId> setOfSeekersWhoHaveSavedJobs = new HashSet<SeekerId>();
+        HashSet<JobSeeker> setOfSeekersWhoHaveSavedJobs = new HashSet<JobSeeker>();
         JobSeekerListing seekersWhoHaveSavedJob = new JobSeekerListing(setOfSeekersWhoHaveSavedJobs);
 
         JobInformation jobInformation = new JobInformation(id, seekersWhoHaveSavedJob);
         Job job = new Job(jobInformation, applicationListing);
         return job;
+    }
+
+    public JobSeekerListing seekersWhoHaveAppliedForJob(Job job) {
+        boolean isJobListed =  jobPosts().isJobListed(job);
+        JobSeekerListing seekersWhoHaveApplied = job.allApplicants();
+        JobSeekerListing emptyListing = JobSeekerListing.empty();
+
+        return isJobListed ? seekersWhoHaveApplied  : emptyListing;
     }
 }

@@ -1,17 +1,17 @@
 package calisthenics.job.queries;
 
 import calisthenics.job.Job;
-import calisthenics.jobseeker.SeekerId;
+import calisthenics.jobseeker.JobSeeker;
 import com.google.common.base.Predicate;
 
 public class JobsThatHaveBeenSavedBySeeker implements Predicate<Job> {
-    private final SeekerId id;
+    private final JobSeeker jobSeeker;
 
-    public JobsThatHaveBeenSavedBySeeker(SeekerId id) {
-        this.id = id;
+    public JobsThatHaveBeenSavedBySeeker(JobSeeker jobSeeker) {
+        this.jobSeeker = jobSeeker;
     }
     @Override
     public boolean apply(Job job) {
-        return job.isJobSaved(id);
+        return job.isJobSaved(jobSeeker);
     }
 }

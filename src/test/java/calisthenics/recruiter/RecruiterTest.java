@@ -4,6 +4,8 @@ import calisthenics.application.Application;
 import calisthenics.application.ApplicationListing;
 import calisthenics.job.Job;
 import calisthenics.job.JobListing;
+import calisthenics.job.JobSeekerListing;
+import calisthenics.jobseeker.JobSeeker;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -60,5 +62,20 @@ public class RecruiterTest {
 
         assertTrue(firstRecruitersPostedJobs.isJobListed(job1));
         assertFalse(firstRecruitersPostedJobs.isJobListed(job2));
+    }
+
+    @Test
+    public void testRecruitersShouldBeAbleToSeeJobSeekersWhoHaveAppliedToTheirJobsByJob(){
+        Recruiter recruiter = new Recruiter(listing);
+        JobSeeker jobSeeker = new JobSeeker(listing);
+
+        Job job = recruiter.createJob();
+        recruiter.post(job);
+
+        Application application = jobSeeker.createApplication();
+        jobSeeker.applyToJob(job, application);
+
+        JobSeekerListing seekersWhoHaveAppliedToJob = recruiter.seekersWhoHaveAppliedForJob(job);
+        assertTrue(seekersWhoHaveAppliedToJob.isJobSeekerListed(jobSeeker));
     }
 }

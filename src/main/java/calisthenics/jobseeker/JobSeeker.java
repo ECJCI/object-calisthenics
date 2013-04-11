@@ -6,24 +6,22 @@ import calisthenics.job.JobListing;
 
 public class JobSeeker {
     private JobListing listing;
-    private final SeekerId seekerId;
 
     public JobSeeker(JobListing listing) {
         this.listing = listing;
-        seekerId = new SeekerId();
     }
 
     public void saveJob(Job job) {
-       job.markAsSavedBySeeker(seekerId);
+       job.markAsSavedBySeeker(this);
     }
 
     public boolean isJobSaved(Job job) {
-        return job.isJobSaved(seekerId);
+        return job.isJobSaved(this);
     }
 
     public JobListing savedJobs()
     {
-       return listing.savedJobs(seekerId);
+       return listing.savedJobs(this);
     }
 
     public void applyToJob(Job job, Application application) {
@@ -31,10 +29,10 @@ public class JobSeeker {
     }
 
     public JobListing jobsAppliedTo() {
-        return listing.jobsAppliedToBySeeker(seekerId);
+        return listing.jobsAppliedToBySeeker(this);
     }
 
     public Application createApplication() {
-        return new Application(seekerId);
+        return new Application(this);
     }
 }

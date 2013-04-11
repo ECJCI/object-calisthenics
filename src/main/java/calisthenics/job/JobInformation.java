@@ -1,6 +1,6 @@
 package calisthenics.job;
 
-import calisthenics.jobseeker.SeekerId;
+import calisthenics.jobseeker.JobSeeker;
 import calisthenics.recruiter.RecruiterId;
 
 public class JobInformation {
@@ -16,11 +16,11 @@ public class JobInformation {
         return recruiterId.equals(id);
     }
 
-    public boolean isJobSaved(SeekerId seekerId) {
-        return jobSeekerListing.isJobSeekerListed(seekerId);
+    public boolean isJobSaved(JobSeeker jobSeeker) {
+        return jobSeekerListing.isJobSeekerListed(jobSeeker);
     }
 
-    public void addSeekerId(SeekerId seekerId) {
-        jobSeekerListing.addJobSeeker(seekerId);
+    public void addSeekerId(JobSeeker jobSeeker) {
+        jobSeekerListing.addJobSeeker(jobSeeker);
     }
 }

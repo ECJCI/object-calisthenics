@@ -2,7 +2,7 @@ package calisthenics.job;
 
 import calisthenics.application.Application;
 import calisthenics.application.ApplicationListing;
-import calisthenics.jobseeker.SeekerId;
+import calisthenics.jobseeker.JobSeeker;
 import calisthenics.recruiter.RecruiterId;
 
 public class Job {
@@ -26,15 +26,19 @@ public class Job {
         return applicationListing.containsApplication(application);
     }
 
-    public boolean isJobSaved(SeekerId seekerId) {
-        return jobInformation.isJobSaved(seekerId);
+    public boolean isJobSaved(JobSeeker jobSeeker) {
+        return jobInformation.isJobSaved(jobSeeker);
     }
 
-    public void markAsSavedBySeeker(SeekerId seekerId) {
-        jobInformation.addSeekerId(seekerId);
+    public void markAsSavedBySeeker(JobSeeker jobSeeker) {
+        jobInformation.addSeekerId(jobSeeker);
     }
 
-    public boolean hasSeekerAppliedToJob(SeekerId seekerId) {
-        return applicationListing.hasApplicationFromSeeker(seekerId);
+    public boolean hasSeekerAppliedToJob(JobSeeker jobSeeker) {
+        return applicationListing.hasApplicationFromSeeker(jobSeeker);
+    }
+
+    public JobSeekerListing allApplicants() {
+        return applicationListing.allSeekersWhoHaveAppliedForJob();  //To change body of created methods use File | Settings | File Templates.
     }
 }

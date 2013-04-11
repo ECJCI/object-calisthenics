@@ -1,18 +1,18 @@
 package calisthenics.job.queries;
 
 import calisthenics.job.Job;
-import calisthenics.jobseeker.SeekerId;
+import calisthenics.jobseeker.JobSeeker;
 import com.google.common.base.Predicate;
 
 public class JobsAppliedToBySeeker implements Predicate<Job> {
-    private SeekerId seekerId;
+    private JobSeeker jobSeeker;
 
-    public JobsAppliedToBySeeker(SeekerId seekerId) {
-        this.seekerId = seekerId;
+    public JobsAppliedToBySeeker(JobSeeker jobSeeker) {
+        this.jobSeeker = jobSeeker;
     }
 
     @Override
     public boolean apply(Job job) {
-        return job.hasSeekerAppliedToJob(seekerId);
+        return job.hasSeekerAppliedToJob(jobSeeker);
     }
 }

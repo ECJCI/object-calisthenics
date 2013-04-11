@@ -1,7 +1,9 @@
 package calisthenics.application;
 
 import calisthenics.application.queries.SeekersWhoHaveAppliedForJob;
-import calisthenics.jobseeker.SeekerId;
+import calisthenics.job.JobSeekerListing;
+import calisthenics.jobseeker.JobSeeker;
+import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 
@@ -22,9 +24,23 @@ public class ApplicationListing {
         return applications.contains(application);
     }
 
-    public boolean hasApplicationFromSeeker(SeekerId seekerId) {
-        Predicate seekersWhoHaveAppliedForJob = new SeekersWhoHaveAppliedForJob(seekerId);
+    public boolean hasApplicationFromSeeker(JobSeeker jobSeeker) {
+        Predicate seekersWhoHaveAppliedForJob = new SeekersWhoHaveAppliedForJob(jobSeeker);
         Collection<Application> applicationsFromSeeker = Collections2.filter(applications, seekersWhoHaveAppliedForJob);
         return !(applicationsFromSeeker.isEmpty());
+    }
+
+    public JobSeekerListing allSeekersWhoHaveAppliedForJob() {
+        Function applicationsToSeeker = new ApplicationToSeeker();
+        Collection<JobSeeker> result = Collections2.transform(applications, applicationsToSeeker);
+        return new JobSeekerListing(result);
+    }
+
+    class ApplicationToSeeker implements Function<Application, JobSeeker> {
+
+        @Override
+        public JobSeeker apply(Application application) {
+            return application.getJobSeekerId();
+        }
     }
 }

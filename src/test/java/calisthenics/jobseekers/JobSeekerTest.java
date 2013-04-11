@@ -6,7 +6,6 @@ import calisthenics.job.Job;
 import calisthenics.job.JobListing;
 import calisthenics.job.JobSeekerListing;
 import calisthenics.jobseeker.JobSeeker;
-import calisthenics.jobseeker.SeekerId;
 import calisthenics.recruiter.Recruiter;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +23,7 @@ public class JobSeekerTest {
     private Collection<Job> savedJobs;
     private JobListing savedJobsListing;
     private Recruiter recruiter;
-    private JobSeeker seeker;
+    private JobSeeker jobSeeker;
     private Job job;
     private ApplicationListing applicationListing;
     private Collection<Application> applications;
@@ -44,8 +43,8 @@ public class JobSeekerTest {
         //recruiter creates and posts a job
         recruiter = new Recruiter(listing);
 
-        //job seeker listing
-        HashSet<SeekerId> setOfSeekersWhoHaveSavedJobs = new HashSet<SeekerId>();
+        //job jobSeeker listing
+        HashSet<JobSeeker> setOfSeekersWhoHaveSavedJobs = new HashSet<JobSeeker>();
         seekersWhoHaveSavedJob = new JobSeekerListing(setOfSeekersWhoHaveSavedJobs);
 
         applications = new ArrayList<Application>();
@@ -53,33 +52,33 @@ public class JobSeekerTest {
 
         job = recruiter.createJob();
 
-        seeker = new JobSeeker(listing);
-        application = seeker.createApplication();
+        jobSeeker = new JobSeeker(listing);
+        application = jobSeeker.createApplication();
     }
 
     @Test
     public void testJobSeekersCanSaveJobsOnSiteForLaterViewing(){
         //Job Seeker saves the job
-        seeker.saveJob(job);
+        jobSeeker.saveJob(job);
 
         //Job Seekers saved jobs should contain the job
-        assertTrue(seeker.isJobSaved(job));
+        assertTrue(jobSeeker.isJobSaved(job));
     }
 
     @Test
     public void testJobSeekersCanApplyToJobsPostedByRecruiters(){
-       Application application = seeker.createApplication();
+       Application application = jobSeeker.createApplication();
        recruiter.post(job);
 
-       seeker.applyToJob(job, application);
+       jobSeeker.applyToJob(job, application);
        assertTrue(job.hasApplication(application));
     }
 
     @Test
     public void testJobSeekersShouldBeAbleToSeeAListingOfJobsTheyHaveSaved(){
         recruiter.post(job);
-        seeker.saveJob(job);
-        JobListing savedJobs = seeker.savedJobs();
+        jobSeeker.saveJob(job);
+        JobListing savedJobs = jobSeeker.savedJobs();
 
         assertTrue(savedJobs.isJobListed(job));
     }
@@ -93,17 +92,17 @@ public class JobSeekerTest {
         recruiter.post(jobAppliedTo);
         recruiter.post(jobNotAppliedTo);
 
-        //seeker applies to job
-        seeker.applyToJob(job,application);
+        //jobSeeker applies to job
+        jobSeeker.applyToJob(jobAppliedTo, application);
 
-        //seeker gets a listing of jobs applied to
-        JobListing jobsAppliedTo = seeker.jobsAppliedTo();
+        //jobSeeker gets a listing of jobs applied to
+        JobListing jobsAppliedTo = jobSeeker.jobsAppliedTo();
 
+        System.out.print(listing.postCount());
         //job applied to should be in the job listing
         assertTrue(jobsAppliedTo.isJobListed(jobAppliedTo));
 
         //job not applied to should not be in the job listing
         assertFalse(jobsAppliedTo.isJobListed(jobNotAppliedTo));
     }
-
 }
