@@ -34,7 +34,8 @@ public class Recruiter {
     public Job createJob() {
         Collection<Application> applications = new ArrayList<Application>();
         ApplicationListing applicationListing = new ApplicationListing(applications);
-        HashSet<SeekerId> seekersWhoHaveSavedJob = new HashSet<SeekerId>();
+        HashSet<SeekerId> setOfSeekersWhoHaveSavedJobs = new HashSet<SeekerId>();
+        JobSeekerListing seekersWhoHaveSavedJob = new JobSeekerListing(setOfSeekersWhoHaveSavedJobs);
 
         JobInformation jobInformation = new JobInformation(id, seekersWhoHaveSavedJob);
         Job job = new Job(jobInformation, applicationListing);

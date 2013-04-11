@@ -3,28 +3,24 @@ package calisthenics.job;
 import calisthenics.jobseeker.SeekerId;
 import calisthenics.recruiter.RecruiterId;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 public class JobInformation {
+    private JobSeekerListing jobSeekerListing;
     private RecruiterId recruiterId;
-    private Collection<SeekerId> seekersWhoSavedJob;
 
-    public JobInformation(RecruiterId recruiterId, Collection<SeekerId> seekersWhoSavedJob) {
+    public JobInformation(RecruiterId recruiterId, JobSeekerListing seekersWhoSavedJob) {
         this.recruiterId = recruiterId;
-        this.seekersWhoSavedJob = seekersWhoSavedJob;
+        this.jobSeekerListing = seekersWhoSavedJob;
     }
 
-    public boolean doesJobBelongToRecruiter(RecruiterId id)
-    {
+    public boolean doesJobBelongToRecruiter(RecruiterId id){
         return recruiterId.equals(id);
     }
 
     public boolean isJobSaved(SeekerId seekerId) {
-        return seekersWhoSavedJob.contains(seekerId);
+        return jobSeekerListing.isJobSeekerListed(seekerId);
     }
 
     public void addSeekerId(SeekerId seekerId) {
-        seekersWhoSavedJob.add(seekerId);
+        jobSeekerListing.addJobSeeker(seekerId);
     }
 }
