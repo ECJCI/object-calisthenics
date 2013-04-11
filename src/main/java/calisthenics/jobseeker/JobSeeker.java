@@ -1,6 +1,6 @@
 package calisthenics.jobseeker;
 
-import calisthenics.job.Application;
+import calisthenics.application.Application;
 import calisthenics.job.Job;
 import calisthenics.job.JobListing;
 

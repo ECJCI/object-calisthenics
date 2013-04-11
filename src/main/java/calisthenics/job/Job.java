@@ -1,5 +1,7 @@
 package calisthenics.job;
 
+import calisthenics.application.Application;
+import calisthenics.application.ApplicationListing;
 import calisthenics.recruiter.RecruiterId;
 
 public class Job {

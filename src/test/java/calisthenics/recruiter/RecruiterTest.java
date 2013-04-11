@@ -1,7 +1,7 @@
 package calisthenics.recruiter;
 
-import calisthenics.job.Application;
-import calisthenics.job.ApplicationListing;
+import calisthenics.application.Application;
+import calisthenics.application.ApplicationListing;
 import calisthenics.job.Job;
 import calisthenics.job.JobListing;
 import org.junit.Before;

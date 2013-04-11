@@ -1,4 +1,6 @@
-package calisthenics.job;
+package calisthenics.application;
+
+import calisthenics.application.Application;
 
 import java.util.Collection;
 

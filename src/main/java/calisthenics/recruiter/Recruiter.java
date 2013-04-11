@@ -1,5 +1,7 @@
 package calisthenics.recruiter;
 
+import calisthenics.application.Application;
+import calisthenics.application.ApplicationListing;
 import calisthenics.job.*;
 
 import java.util.ArrayList;
