@@ -1,7 +1,9 @@
 package calisthenics.recruiter;
 
-import calisthenics.job.Job;
-import calisthenics.job.JobListing;
+import calisthenics.job.*;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class Recruiter {
 
@@ -21,9 +23,17 @@ public class Recruiter {
         return id;
     }
 
-    public JobListing JobPosts() {
+    public JobListing jobPosts() {
         return listing.jobsByRecruiterId(id);
     }
+
+    public Job createJob() {
+        Collection<Application> applications = new ArrayList<Application>();
+        ApplicationListing applicationListing = new ApplicationListing(applications);
+
+        JobInformation jobInformation = new JobInformation(id);
+
+        Job job = new Job(jobInformation, applicationListing);
+        return job;
+    }
 }
-
-

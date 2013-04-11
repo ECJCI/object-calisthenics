@@ -13,7 +13,7 @@ public class JobListing {
         this.jobs = jobList;
     }
 
-    public int PostCount() {
+    public int postCount() {
         return jobs.size();
     }
 
@@ -21,7 +21,7 @@ public class JobListing {
         jobs.add(job);
     }
 
-    public JobListing jobsByRecruiterId(final RecruiterId id) {
+    public JobListing jobsByRecruiterId(RecruiterId id) {
 
         Predicate<Job> belongsToRecruiter = new BelongsToRecruiter(id);
         Collection<Job> jobsWithSpecificId = Collections2.filter(jobs, belongsToRecruiter) ;
@@ -38,10 +38,9 @@ public class JobListing {
         public BelongsToRecruiter(RecruiterId id) {
             this.id = id;
         }
-
         @Override
         public boolean apply(Job job) {
-            return job.getRecruiterId().equals(id);
+             return job.doesJobBelongToRecruiter(job, id);
         }
     }
 }

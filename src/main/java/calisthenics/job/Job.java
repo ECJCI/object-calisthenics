@@ -3,17 +3,17 @@ package calisthenics.job;
 import calisthenics.recruiter.RecruiterId;
 
 public class Job {
-    private RecruiterId recruiterId;
+    JobInformation jobInformation;
     private ApplicationListing applicationListing;
 
-
-    public Job(RecruiterId recruiterId, ApplicationListing applicationListing) {
-        this.recruiterId = recruiterId;
+    public Job(JobInformation jobInformation, ApplicationListing applicationListing) {
         this.applicationListing = applicationListing;
+        this.jobInformation = jobInformation;
     }
 
-    public RecruiterId getRecruiterId() {
-        return recruiterId;
+    public boolean doesJobBelongToRecruiter(Job job, RecruiterId id)
+    {
+        return jobInformation.doesJobBelongToRecruiter(job.jobInformation, id);
     }
 
     public void addApplication(Application application) {
@@ -24,4 +24,3 @@ public class Job {
         return applicationListing.containsApplication(application);
     }
 }
-

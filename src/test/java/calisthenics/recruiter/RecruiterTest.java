@@ -37,9 +37,9 @@ public class RecruiterTest {
         Recruiter recruiter = new Recruiter(listing);
         RecruiterId id = recruiter.Id();
 
-        job = new Job(id, applicationListing);
+        job = recruiter.createJob();
         recruiter.post(job);
-        assertTrue(listing.PostCount() > 0);
+        assertTrue(listing.postCount() > 0);
     }
 
     @Test
@@ -50,15 +50,15 @@ public class RecruiterTest {
         RecruiterId firstRecruiterId = firstRecruiter.Id();
         RecruiterId secondRecruiterId = secondRecruiter.Id();
 
-        Job job1 = new Job(firstRecruiterId, applicationListing);
-        Job job2 = new Job(secondRecruiterId, applicationListing);
+        Job job1 = firstRecruiter.createJob();
+        Job job2 = secondRecruiter.createJob();
 
         firstRecruiter.post(job1);
         secondRecruiter.post(job2);
 
-        JobListing firstRecruitersJobListing = firstRecruiter.JobPosts();
+        JobListing firstRecruitersPostedJobs = firstRecruiter.jobPosts();
 
-        assertTrue(firstRecruitersJobListing.isJobListed(job1));
-        assertFalse(firstRecruitersJobListing.isJobListed(job2));
+        assertTrue(firstRecruitersPostedJobs.isJobListed(job1));
+        assertFalse(firstRecruitersPostedJobs.isJobListed(job2));
     }
 }

@@ -41,14 +41,14 @@ public class JobSeekerTest {
         applications = new ArrayList<Application>();
         applicationListing = new ApplicationListing(applications);
 
-        job = new Job(recruiter.Id(), applicationListing);
+        job = recruiter.createJob();
+
+        seeker = new JobSeeker(savedJobsListing);
     }
 
     @Test
     public void testJobSeekersCanSaveJobsOnSiteForLaterViewing(){
-
         //Job Seeker saves the job
-        seeker = new JobSeeker(savedJobsListing);
         seeker.saveJob(job);
 
         //Job Seekers saved jobs should contain the job
@@ -61,7 +61,6 @@ public class JobSeekerTest {
        recruiter.post(job);
 
        seeker.applyToJob(job, application);
-
        assertTrue(job.hasApplication(application));
     }
 }
