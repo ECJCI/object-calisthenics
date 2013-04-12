@@ -16,4 +16,5 @@ public class Application {
     public JobSeeker getJobSeekerId() {
         return jobSeeker;
     }
+
 }

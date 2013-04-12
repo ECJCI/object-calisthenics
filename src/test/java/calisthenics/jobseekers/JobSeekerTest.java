@@ -4,7 +4,8 @@ import calisthenics.application.Application;
 import calisthenics.application.ApplicationListing;
 import calisthenics.job.Job;
 import calisthenics.job.JobListing;
-import calisthenics.job.JobSeekerListing;
+import calisthenics.jobseeker.JobSeekerFactory;
+import calisthenics.jobseeker.JobSeekerListing;
 import calisthenics.jobseeker.JobSeeker;
 import calisthenics.recruiter.Recruiter;
 import org.junit.Before;
@@ -19,40 +20,39 @@ import static org.junit.Assert.assertTrue;
 
 public class JobSeekerTest {
     private Collection<Job> jobs;
-    private JobListing listing;
-    private Collection<Job> savedJobs;
-    private JobListing savedJobsListing;
+    private JobListing jobListing;
+
     private Recruiter recruiter;
     private JobSeeker jobSeeker;
     private Job job;
     private ApplicationListing applicationListing;
     private Collection<Application> applications;
-    private JobSeekerListing seekersWhoHaveSavedJob;
+    private JobSeekerListing jobSeekerListing;
     private Application application;
 
     @Before
     public void setUp() throws Exception {
         //Listing that recruiters post to
         jobs = new ArrayList<Job>();
-        listing = new JobListing(jobs);
+        jobListing = new JobListing(jobs);
 
-        //snapshot listing that job seekers can save
-        savedJobs = new ArrayList<Job>();
-        savedJobsListing = new JobListing(savedJobs);
 
         //recruiter creates and posts a job
-        recruiter = new Recruiter(listing);
+        recruiter = new Recruiter(jobListing, jobSeekerListing);
 
-        //job jobSeeker listing
-        HashSet<JobSeeker> setOfSeekersWhoHaveSavedJobs = new HashSet<JobSeeker>();
-        seekersWhoHaveSavedJob = new JobSeekerListing(setOfSeekersWhoHaveSavedJobs);
 
         applications = new ArrayList<Application>();
         applicationListing = new ApplicationListing(applications);
 
         job = recruiter.createJob();
 
-        jobSeeker = new JobSeeker(listing);
+        //create the jobSeeker listing
+        HashSet<JobSeeker> jobSeekers = new HashSet<JobSeeker>();
+        jobSeekerListing = new JobSeekerListing(jobSeekers);
+
+        //create job seeker
+        JobSeekerFactory jobSeekerFactory = new JobSeekerFactory(jobSeekerListing, jobListing);
+        jobSeeker = jobSeekerFactory.create();
         application = jobSeeker.createApplication();
     }
 
@@ -98,7 +98,7 @@ public class JobSeekerTest {
         //jobSeeker gets a listing of jobs applied to
         JobListing jobsAppliedTo = jobSeeker.jobsAppliedTo();
 
-        System.out.print(listing.postCount());
+        System.out.print(jobListing.postCount());
         //job applied to should be in the job listing
         assertTrue(jobsAppliedTo.isJobListed(jobAppliedTo));
 

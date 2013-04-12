@@ -3,6 +3,7 @@ package calisthenics.job;
 import calisthenics.application.Application;
 import calisthenics.application.ApplicationListing;
 import calisthenics.jobseeker.JobSeeker;
+import calisthenics.jobseeker.JobSeekerListing;
 import calisthenics.recruiter.RecruiterId;
 
 public class Job {

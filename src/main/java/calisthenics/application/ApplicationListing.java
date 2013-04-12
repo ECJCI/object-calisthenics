@@ -1,7 +1,7 @@
 package calisthenics.application;
 
 import calisthenics.application.queries.SeekersWhoHaveAppliedForJob;
-import calisthenics.job.JobSeekerListing;
+import calisthenics.jobseeker.JobSeekerListing;
 import calisthenics.jobseeker.JobSeeker;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;

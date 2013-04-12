@@ -1,6 +1,7 @@
 package calisthenics.job;
 
 import calisthenics.jobseeker.JobSeeker;
+import calisthenics.jobseeker.JobSeekerListing;
 import calisthenics.recruiter.RecruiterId;
 
 public class JobInformation {
@@ -21,6 +22,6 @@ public class JobInformation {
     }
 
     public void addSeekerId(JobSeeker jobSeeker) {
-        jobSeekerListing.addJobSeeker(jobSeeker);
+        jobSeekerListing.add(jobSeeker);
     }
 }

@@ -5,7 +5,7 @@ import calisthenics.application.ApplicationListing;
 import calisthenics.job.Job;
 import calisthenics.job.JobInformation;
 import calisthenics.job.JobListing;
-import calisthenics.job.JobSeekerListing;
+import calisthenics.jobseeker.JobSeekerListing;
 import calisthenics.jobseeker.JobSeeker;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class Recruiter {
     private JobListing listing;
     private RecruiterId id;
 
-    public Recruiter(JobListing listing) {
+    public Recruiter(JobListing listing, JobSeekerListing jobSeekerListing) {
         this.listing = listing;
         id = new RecruiterId();
     }

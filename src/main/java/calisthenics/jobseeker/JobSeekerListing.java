@@ -1,6 +1,4 @@
-package calisthenics.job;
-
-import calisthenics.jobseeker.JobSeeker;
+package calisthenics.jobseeker;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -16,7 +14,7 @@ public class JobSeekerListing {
         return seekersWhoSavedJob.contains(jobSeeker);
     }
 
-    public void addJobSeeker(JobSeeker jobSeeker) {
+    public void add(JobSeeker jobSeeker) {
         seekersWhoSavedJob.add(jobSeeker);
     }
 
