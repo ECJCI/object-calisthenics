@@ -4,14 +4,15 @@ import calisthenics.application.Application;
 import calisthenics.application.ApplicationListing;
 import calisthenics.job.Job;
 import calisthenics.job.JobListing;
-import calisthenics.job.JobSeekerListing;
+import calisthenics.jobseeker.JobSeekerFactory;
+import calisthenics.jobseeker.JobSeekerListing;
 import calisthenics.jobseeker.JobSeeker;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashSet;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -19,38 +20,42 @@ import static org.junit.Assert.assertTrue;
 
 public class RecruiterTest {
 
-    private List<Job> jobList;
+    private HashSet<Job> jobList;
     private Job job;
-    private JobListing listing;
+    private JobListing jobListing;
     private ApplicationListing applicationListing;
     private Collection<Application> applications;
+    private JobSeekerFactory jobSeekerFactory;
+    private JobSeekerListing jobSeekerListing;
 
 
     @Before
     public void setUp() {
-        jobList = new ArrayList<Job>();
-        listing = new JobListing(jobList);
+        jobList = new HashSet<Job>();
+
+        jobListing = new JobListing(jobList);
         applications = new ArrayList<Application>();
+
+        HashSet<JobSeeker> jobSeekers = new HashSet<JobSeeker>();
+        jobSeekerListing = new JobSeekerListing(jobSeekers);
+
         applicationListing = new ApplicationListing(applications);
+        jobSeekerFactory = new JobSeekerFactory(jobListing, jobSeekerListing);
     }
 
     @Test
     public void testRecruitersCanPostJobs() {
-        Recruiter recruiter = new Recruiter(listing);
-        RecruiterId id = recruiter.Id();
+        Recruiter recruiter = new Recruiter(jobListing, jobSeekerListing);
 
         job = recruiter.createJob();
         recruiter.post(job);
-        assertTrue(listing.postCount() > 0);
+        assertTrue(jobListing.postCount() > 0);
     }
 
     @Test
     public void testRecruitersShouldBeAbleToSeeAListingOfTheJobsTheyHavePosted(){
-        Recruiter firstRecruiter = new Recruiter(listing);
-        Recruiter secondRecruiter = new Recruiter(listing);
-
-        RecruiterId firstRecruiterId = firstRecruiter.Id();
-        RecruiterId secondRecruiterId = secondRecruiter.Id();
+        Recruiter firstRecruiter = new Recruiter(jobListing, jobSeekerListing);
+        Recruiter secondRecruiter = new Recruiter(jobListing, jobSeekerListing);
 
         Job job1 = firstRecruiter.createJob();
         Job job2 = secondRecruiter.createJob();
@@ -60,14 +65,15 @@ public class RecruiterTest {
 
         JobListing firstRecruitersPostedJobs = firstRecruiter.jobPosts();
 
-        assertTrue(firstRecruitersPostedJobs.isJobListed(job1));
-        assertFalse(firstRecruitersPostedJobs.isJobListed(job2));
+        System.out.print(job1.doesJobBelongToRecruiter(firstRecruiter));
+        assertTrue(firstRecruitersPostedJobs.isListed(job1));
+        assertFalse(firstRecruitersPostedJobs.isListed(job2));
     }
 
     @Test
     public void testRecruitersShouldBeAbleToSeeJobSeekersWhoHaveAppliedToTheirJobsByJob(){
-        Recruiter recruiter = new Recruiter(listing);
-        JobSeeker jobSeeker = new JobSeeker(listing);
+        Recruiter recruiter = new Recruiter(jobListing, jobSeekerListing);
+        JobSeeker jobSeeker = jobSeekerFactory.create();
 
         Job job = recruiter.createJob();
         recruiter.post(job);
@@ -75,7 +81,7 @@ public class RecruiterTest {
         Application application = jobSeeker.createApplication();
         jobSeeker.applyToJob(job, application);
 
-        JobSeekerListing seekersWhoHaveAppliedToJob = recruiter.seekersWhoHaveAppliedForJob(job);
-        assertTrue(seekersWhoHaveAppliedToJob.isJobSeekerListed(jobSeeker));
+        JobSeekerListing jobSeekersWhoHaveAppliedToJob = recruiter.jobSeekersWhoHaveAppliedForJob(job);
+        assertTrue(jobSeekersWhoHaveAppliedToJob.isListed(jobSeeker));
     }
 }

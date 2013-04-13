@@ -1,13 +1,13 @@
-package calisthenics.job.queries;
+package calisthenics.job.queries.predicates;
 
 import calisthenics.job.Job;
 import calisthenics.jobseeker.JobSeeker;
 import com.google.common.base.Predicate;
 
-public class JobsAppliedToBySeeker implements Predicate<Job> {
+public class JobsAppliedToBySeekerPredicate implements Predicate<Job> {
     private JobSeeker jobSeeker;
 
-    public JobsAppliedToBySeeker(JobSeeker jobSeeker) {
+    public JobsAppliedToBySeekerPredicate(JobSeeker jobSeeker) {
         this.jobSeeker = jobSeeker;
     }
 

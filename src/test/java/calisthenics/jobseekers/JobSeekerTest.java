@@ -4,8 +4,9 @@ import calisthenics.application.Application;
 import calisthenics.application.ApplicationListing;
 import calisthenics.job.Job;
 import calisthenics.job.JobListing;
-import calisthenics.job.JobSeekerListing;
+import calisthenics.jobseeker.JobSeekerListing;
 import calisthenics.jobseeker.JobSeeker;
+import calisthenics.jobseeker.JobSeekerFactory;
 import calisthenics.recruiter.Recruiter;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,6 +30,9 @@ public class JobSeekerTest {
     private Collection<Application> applications;
     private JobSeekerListing seekersWhoHaveSavedJob;
     private Application application;
+    private JobSeekerFactory jobSeekerFactory;
+    private JobSeekerListing jobSeekerListing;
+    private JobSeekerListing seekerListing;
 
     @Before
     public void setUp() throws Exception {
@@ -41,7 +45,7 @@ public class JobSeekerTest {
         savedJobsListing = new JobListing(savedJobs);
 
         //recruiter creates and posts a job
-        recruiter = new Recruiter(listing);
+        recruiter = new Recruiter(listing, jobSeekerListing);
 
         //job jobSeeker listing
         HashSet<JobSeeker> setOfSeekersWhoHaveSavedJobs = new HashSet<JobSeeker>();
@@ -52,7 +56,11 @@ public class JobSeekerTest {
 
         job = recruiter.createJob();
 
-        jobSeeker = new JobSeeker(listing);
+        HashSet<JobSeeker> jobSeekers = new HashSet<JobSeeker>();
+        jobSeekerListing = new JobSeekerListing(jobSeekers);
+
+        jobSeekerFactory = new JobSeekerFactory(listing, jobSeekerListing);
+        jobSeeker = jobSeekerFactory.create();
         application = jobSeeker.createApplication();
     }
 
@@ -80,7 +88,7 @@ public class JobSeekerTest {
         jobSeeker.saveJob(job);
         JobListing savedJobs = jobSeeker.savedJobs();
 
-        assertTrue(savedJobs.isJobListed(job));
+        assertTrue(savedJobs.isListed(job));
     }
 
     @Test
@@ -100,9 +108,9 @@ public class JobSeekerTest {
 
         System.out.print(listing.postCount());
         //job applied to should be in the job listing
-        assertTrue(jobsAppliedTo.isJobListed(jobAppliedTo));
+        assertTrue(jobsAppliedTo.isListed(jobAppliedTo));
 
         //job not applied to should not be in the job listing
-        assertFalse(jobsAppliedTo.isJobListed(jobNotAppliedTo));
+        assertFalse(jobsAppliedTo.isListed(jobNotAppliedTo));
     }
 }

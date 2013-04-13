@@ -1,26 +1,27 @@
 package calisthenics.job;
 
 import calisthenics.jobseeker.JobSeeker;
-import calisthenics.recruiter.RecruiterId;
+import calisthenics.jobseeker.JobSeekerListing;
+import calisthenics.recruiter.Recruiter;
 
 public class JobInformation {
     private JobSeekerListing jobSeekerListing;
-    private RecruiterId recruiterId;
+    private Recruiter recruiter;
 
-    public JobInformation(RecruiterId recruiterId, JobSeekerListing seekersWhoSavedJob) {
-        this.recruiterId = recruiterId;
+    public JobInformation(Recruiter recruiter, JobSeekerListing seekersWhoSavedJob) {
+        this.recruiter = recruiter;
         this.jobSeekerListing = seekersWhoSavedJob;
     }
 
-    public boolean doesJobBelongToRecruiter(RecruiterId id){
-        return recruiterId.equals(id);
+    public boolean doesJobBelongToRecruiter(Recruiter recruiter){
+        return this.recruiter.equals(recruiter);
     }
 
     public boolean isJobSaved(JobSeeker jobSeeker) {
-        return jobSeekerListing.isJobSeekerListed(jobSeeker);
+        return jobSeekerListing.isListed(jobSeeker);
     }
 
     public void addSeekerId(JobSeeker jobSeeker) {
-        jobSeekerListing.addJobSeeker(jobSeeker);
+        jobSeekerListing.add(jobSeeker);
     }
 }

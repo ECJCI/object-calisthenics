@@ -1,16 +1,17 @@
 package calisthenics.job;
 
-import calisthenics.job.queries.JobsAppliedToBySeeker;
-import calisthenics.job.queries.JobsCreatedByRecruiter;
-import calisthenics.job.queries.JobsThatHaveBeenSavedBySeeker;
+import calisthenics.interfaces.Listing;
+import calisthenics.interfaces.Query;
+import calisthenics.job.queries.JobsByRecruiter;
+import calisthenics.job.queries.JobsAppliedTo;
+import calisthenics.job.queries.SavedJobs;
 import calisthenics.jobseeker.JobSeeker;
-import calisthenics.recruiter.RecruiterId;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
+import calisthenics.recruiter.Recruiter;
 
 import java.util.Collection;
+import java.util.HashSet;
 
-public class JobListing {
+public class JobListing implements Listing<Job> {
     private Collection<Job> jobs;
 
     public JobListing(Collection<Job> jobList) {
@@ -21,30 +22,39 @@ public class JobListing {
         return jobs.size();
     }
 
-    public void addJob(Job job) {
-        jobs.add(job);
-    }
-
-    public JobListing jobsByRecruiterId(RecruiterId id) {
-
-        Predicate<Job> belongsToRecruiter = new JobsCreatedByRecruiter(id);
-        Collection<Job> jobsWithSpecificId = Collections2.filter(jobs, belongsToRecruiter) ;
-        return new JobListing(jobsWithSpecificId);
-    }
-
-    public boolean isJobListed(Job job) {
-        return jobs.contains(job);
+    public JobListing jobsByRecruiterId(Recruiter recruiter) {
+       return (JobListing) query(new JobsByRecruiter(), recruiter);
     }
 
     public JobListing savedJobs(JobSeeker jobSeeker) {
-        Predicate<Job> isJobSaved = new JobsThatHaveBeenSavedBySeeker(jobSeeker);
-        Collection<Job> jobsThatHaveBeenSavedBySeeker = Collections2.filter(jobs, isJobSaved);
-        return new JobListing(jobsThatHaveBeenSavedBySeeker);
+        return (JobListing) query(new SavedJobs(), jobSeeker);
     }
 
     public JobListing jobsAppliedToBySeeker(JobSeeker jobSeeker) {
-        Predicate<Job> hasAppliedToJob = new JobsAppliedToBySeeker(jobSeeker);
-        Collection<Job> jobsThatSeekerHasAppliedTo = Collections2.filter(jobs, hasAppliedToJob);
-        return new JobListing(jobsThatSeekerHasAppliedTo);
+        return (JobListing) query(new JobsAppliedTo(), jobSeeker);
+    }
+
+    @Override
+    public boolean isListed(Job job) {
+        return jobs.contains(job);
+    }
+
+    @Override
+    public void add(Job job) {
+        jobs.add(job);
+    }
+
+    @Override
+    public boolean contains(Job job) {
+        return jobs.contains(job);  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public Listing<Job> query(Query<Job> query, Object element) {
+        return query.query(jobs, element);
+    }
+
+    public static JobListing empty() {
+        return new JobListing(new HashSet<Job>());
     }
 }

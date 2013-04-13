@@ -3,7 +3,8 @@ package calisthenics.job;
 import calisthenics.application.Application;
 import calisthenics.application.ApplicationListing;
 import calisthenics.jobseeker.JobSeeker;
-import calisthenics.recruiter.RecruiterId;
+import calisthenics.jobseeker.JobSeekerListing;
+import calisthenics.recruiter.Recruiter;
 
 public class Job {
     JobInformation jobInformation;
@@ -14,8 +15,8 @@ public class Job {
         this.jobInformation = jobInformation;
     }
 
-    public boolean doesJobBelongToRecruiter(RecruiterId id){
-        return jobInformation.doesJobBelongToRecruiter(id);
+    public boolean doesJobBelongToRecruiter(Recruiter recruiter){
+        return jobInformation.doesJobBelongToRecruiter(recruiter);
     }
 
     public void addApplication(Application application) {
@@ -23,7 +24,7 @@ public class Job {
     }
 
     public boolean hasApplication(Application application) {
-        return applicationListing.containsApplication(application);
+        return applicationListing.contains(application);
     }
 
     public boolean isJobSaved(JobSeeker jobSeeker) {
@@ -39,6 +40,6 @@ public class Job {
     }
 
     public JobSeekerListing allApplicants() {
-        return applicationListing.allSeekersWhoHaveAppliedForJob();  //To change body of created methods use File | Settings | File Templates.
+        return applicationListing.allSeekersWhoHaveAppliedForJob();
     }
 }

@@ -5,7 +5,7 @@ import calisthenics.application.ApplicationListing;
 import calisthenics.job.Job;
 import calisthenics.job.JobInformation;
 import calisthenics.job.JobListing;
-import calisthenics.job.JobSeekerListing;
+import calisthenics.jobseeker.JobSeekerListing;
 import calisthenics.jobseeker.JobSeeker;
 
 import java.util.ArrayList;
@@ -15,23 +15,19 @@ import java.util.HashSet;
 public class Recruiter {
 
     private JobListing listing;
-    private RecruiterId id;
+    private JobSeekerListing jobSeekerListing;
 
-    public Recruiter(JobListing listing) {
+    public Recruiter(JobListing listing, JobSeekerListing jobSeekerListing) {
         this.listing = listing;
-        id = new RecruiterId();
+        this.jobSeekerListing = jobSeekerListing;
     }
 
     public void post(Job job) {
-       listing.addJob(job);
-    }
-
-    public RecruiterId Id() {
-        return id;
+       listing.add(job);
     }
 
     public JobListing jobPosts() {
-        return listing.jobsByRecruiterId(id);
+        return listing.jobsByRecruiterId(this);
     }
 
     public Job createJob() {
@@ -40,16 +36,17 @@ public class Recruiter {
         HashSet<JobSeeker> setOfSeekersWhoHaveSavedJobs = new HashSet<JobSeeker>();
         JobSeekerListing seekersWhoHaveSavedJob = new JobSeekerListing(setOfSeekersWhoHaveSavedJobs);
 
-        JobInformation jobInformation = new JobInformation(id, seekersWhoHaveSavedJob);
+        JobInformation jobInformation = new JobInformation(this, seekersWhoHaveSavedJob);
         Job job = new Job(jobInformation, applicationListing);
         return job;
     }
 
-    public JobSeekerListing seekersWhoHaveAppliedForJob(Job job) {
-        boolean isJobListed =  jobPosts().isJobListed(job);
-        JobSeekerListing seekersWhoHaveApplied = job.allApplicants();
+    public JobSeekerListing jobSeekersWhoHaveAppliedForJob(Job job) {
+        boolean isJobListed =  jobPosts().isListed(job);
+        JobSeekerListing seekersWhoHaveApplied = jobSeekerListing.jobSeekersWhoHaveAppliedToJob(job);
         JobSeekerListing emptyListing = JobSeekerListing.empty();
 
         return isJobListed ? seekersWhoHaveApplied  : emptyListing;
     }
+
 }
