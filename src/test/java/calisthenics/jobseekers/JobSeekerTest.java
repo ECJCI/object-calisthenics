@@ -7,6 +7,7 @@ import calisthenics.job.JobListing;
 import calisthenics.jobseeker.JobSeekerListing;
 import calisthenics.jobseeker.JobSeeker;
 import calisthenics.jobseeker.JobSeekerFactory;
+import calisthenics.job.JobFactory;
 import calisthenics.recruiter.Recruiter;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,6 +34,7 @@ public class JobSeekerTest {
     private JobSeekerFactory jobSeekerFactory;
     private JobSeekerListing jobSeekerListing;
     private JobSeekerListing seekerListing;
+    private JobFactory jobFactory;
 
     @Before
     public void setUp() throws Exception {
@@ -44,8 +46,10 @@ public class JobSeekerTest {
         savedJobs = new ArrayList<Job>();
         savedJobsListing = new JobListing(savedJobs);
 
+        jobFactory = new JobFactory();
+
         //recruiter creates and posts a job
-        recruiter = new Recruiter(listing, jobSeekerListing);
+        recruiter = new Recruiter(listing, jobSeekerListing, jobFactory);
 
         //job jobSeeker listing
         HashSet<JobSeeker> setOfSeekersWhoHaveSavedJobs = new HashSet<JobSeeker>();

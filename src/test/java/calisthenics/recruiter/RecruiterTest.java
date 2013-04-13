@@ -3,6 +3,7 @@ package calisthenics.recruiter;
 import calisthenics.application.Application;
 import calisthenics.application.ApplicationListing;
 import calisthenics.job.Job;
+import calisthenics.job.JobFactory;
 import calisthenics.job.JobListing;
 import calisthenics.jobseeker.JobSeekerFactory;
 import calisthenics.jobseeker.JobSeekerListing;
@@ -27,11 +28,13 @@ public class RecruiterTest {
     private Collection<Application> applications;
     private JobSeekerFactory jobSeekerFactory;
     private JobSeekerListing jobSeekerListing;
+    private JobFactory jobFactory;
 
 
     @Before
     public void setUp() {
         jobList = new HashSet<Job>();
+        jobFactory = new JobFactory();
 
         jobListing = new JobListing(jobList);
         applications = new ArrayList<Application>();
@@ -45,7 +48,7 @@ public class RecruiterTest {
 
     @Test
     public void testRecruitersCanPostJobs() {
-        Recruiter recruiter = new Recruiter(jobListing, jobSeekerListing);
+        Recruiter recruiter = new Recruiter(jobListing, jobSeekerListing, jobFactory);
 
         job = recruiter.createJob();
         recruiter.post(job);
@@ -54,8 +57,9 @@ public class RecruiterTest {
 
     @Test
     public void testRecruitersShouldBeAbleToSeeAListingOfTheJobsTheyHavePosted(){
-        Recruiter firstRecruiter = new Recruiter(jobListing, jobSeekerListing);
-        Recruiter secondRecruiter = new Recruiter(jobListing, jobSeekerListing);
+
+        Recruiter firstRecruiter = new Recruiter(jobListing, jobSeekerListing, jobFactory);
+        Recruiter secondRecruiter = new Recruiter(jobListing, jobSeekerListing, jobFactory);
 
         Job job1 = firstRecruiter.createJob();
         Job job2 = secondRecruiter.createJob();
@@ -72,7 +76,7 @@ public class RecruiterTest {
 
     @Test
     public void testRecruitersShouldBeAbleToSeeJobSeekersWhoHaveAppliedToTheirJobsByJob(){
-        Recruiter recruiter = new Recruiter(jobListing, jobSeekerListing);
+        Recruiter recruiter = new Recruiter(jobListing, jobSeekerListing, jobFactory);
         JobSeeker jobSeeker = jobSeekerFactory.create();
 
         Job job = recruiter.createJob();

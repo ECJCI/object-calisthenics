@@ -1,25 +1,20 @@
 package calisthenics.recruiter;
 
-import calisthenics.application.Application;
-import calisthenics.application.ApplicationListing;
 import calisthenics.job.Job;
-import calisthenics.job.JobInformation;
+import calisthenics.job.JobFactory;
 import calisthenics.job.JobListing;
 import calisthenics.jobseeker.JobSeekerListing;
-import calisthenics.jobseeker.JobSeeker;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
 
 public class Recruiter {
 
     private JobListing listing;
     private JobSeekerListing jobSeekerListing;
+    private JobFactory jobFactory;
 
-    public Recruiter(JobListing listing, JobSeekerListing jobSeekerListing) {
+    public Recruiter(JobListing listing, JobSeekerListing jobSeekerListing, JobFactory jobFactory) {
         this.listing = listing;
         this.jobSeekerListing = jobSeekerListing;
+        this.jobFactory = jobFactory;
     }
 
     public void post(Job job) {
@@ -31,14 +26,7 @@ public class Recruiter {
     }
 
     public Job createJob() {
-        Collection<Application> applications = new ArrayList<Application>();
-        ApplicationListing applicationListing = new ApplicationListing(applications);
-        HashSet<JobSeeker> setOfSeekersWhoHaveSavedJobs = new HashSet<JobSeeker>();
-        JobSeekerListing seekersWhoHaveSavedJob = new JobSeekerListing(setOfSeekersWhoHaveSavedJobs);
-
-        JobInformation jobInformation = new JobInformation(this, seekersWhoHaveSavedJob);
-        Job job = new Job(jobInformation, applicationListing);
-        return job;
+      return jobFactory.createJob(this);
     }
 
     public JobSeekerListing jobSeekersWhoHaveAppliedForJob(Job job) {
