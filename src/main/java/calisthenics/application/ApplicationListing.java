@@ -1,11 +1,12 @@
 package calisthenics.application;
 
-import calisthenics.application.queries.SeekersWhoHaveAppliedForJob;
+import calisthenics.application.maps.ApplicationToJobSeekers;
+import calisthenics.application.reductions.SeekersWhoHaveAppliedForJob;
 import calisthenics.interfaces.Listing;
-import calisthenics.interfaces.Query;
+import calisthenics.interfaces.Map;
+import calisthenics.interfaces.Reduction;
 import calisthenics.jobseeker.JobSeekerListing;
 import calisthenics.jobseeker.JobSeeker;
-import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 
@@ -35,10 +36,14 @@ public class ApplicationListing implements Listing<Application> {
     }
 
     @Override
-    public Listing<Application> query(Query<Application> query, Object element) {
-        return query.query(applications, element);
+    public <A> Listing<Application> reduce(Reduction<Application, A> reduction, A element) {
+        return reduction.reduce(applications, element);
     }
 
+    @Override
+    public <A> Listing<A> map(Map<Application, A> map, Listing<Application> data) {
+        return map.map(applications);
+    }
 
     public static ApplicationListing empty() {
         Collection<Application> setOfApplications = new HashSet<Application>();
@@ -46,21 +51,13 @@ public class ApplicationListing implements Listing<Application> {
     }
 
     public boolean hasApplicationFromSeeker(JobSeeker jobSeeker) {
-        Predicate seekersWhoHaveAppliedForJob = new SeekersWhoHaveAppliedForJob(jobSeeker);
+        Predicate<Application> seekersWhoHaveAppliedForJob = new SeekersWhoHaveAppliedForJob(jobSeeker);
         Collection<Application> applicationsFromSeeker = Collections2.filter(applications, seekersWhoHaveAppliedForJob);
         return !(applicationsFromSeeker.isEmpty());
     }
 
     public JobSeekerListing allSeekersWhoHaveAppliedForJob() {
-        Function applicationsToSeeker = new ApplicationToSeeker();
-        Collection<JobSeeker> result = Collections2.transform(applications, applicationsToSeeker);
-        return new JobSeekerListing(result);
-    }
-
-    class ApplicationToSeeker implements Function<Application, JobSeeker> {
-        @Override
-        public JobSeeker apply(Application application) {
-            return application.getJobSeekerId();
-        }
+        Map<Application, JobSeeker> applicationsToJobSeekers = new ApplicationToJobSeekers();
+        return (JobSeekerListing) applicationsToJobSeekers.map(applications);
     }
 }

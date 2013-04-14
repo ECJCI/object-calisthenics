@@ -1,4 +1,4 @@
-package calisthenics.application.queries;
+package calisthenics.application.reductions;
 
 import calisthenics.application.Application;
 import calisthenics.jobseeker.JobSeeker;

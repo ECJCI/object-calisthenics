@@ -1,4 +1,4 @@
-package calisthenics.job.queries.predicates;
+package calisthenics.job.reductions.predicates;
 
 import calisthenics.job.Job;
 import calisthenics.recruiter.Recruiter;

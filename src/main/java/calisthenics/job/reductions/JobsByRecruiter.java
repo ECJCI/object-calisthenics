@@ -1,20 +1,20 @@
-package calisthenics.job.queries;
+package calisthenics.job.reductions;
 
 
 import calisthenics.interfaces.Listing;
-import calisthenics.interfaces.Query;
+import calisthenics.interfaces.Reduction;
 import calisthenics.job.Job;
 import calisthenics.job.JobListing;
-import calisthenics.job.queries.predicates.JobsCreatedByRecruiter;
+import calisthenics.job.reductions.predicates.JobsCreatedByRecruiter;
 import calisthenics.recruiter.Recruiter;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 
 import java.util.Collection;
 
-public class JobsByRecruiter implements Query<Job> {
+public class JobsByRecruiter implements Reduction<Job, Recruiter> {
     @Override
-    public Listing<Job> query(Collection<Job> jobs, Object element) {
+    public Listing<Job> reduce(Collection<Job> jobs, Recruiter element) {
         Recruiter recruiter = (Recruiter) element;
         Predicate<Job> belongsToRecruiter = new JobsCreatedByRecruiter(recruiter);
         Collection<Job> jobsWithSpecificId = Collections2.filter(jobs, belongsToRecruiter) ;

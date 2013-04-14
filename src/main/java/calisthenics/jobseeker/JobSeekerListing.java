@@ -1,7 +1,8 @@
 package calisthenics.jobseeker;
 
 import calisthenics.interfaces.Listing;
-import calisthenics.interfaces.Query;
+import calisthenics.interfaces.Map;
+import calisthenics.interfaces.Reduction;
 import calisthenics.job.Job;
 
 import java.util.Collection;
@@ -38,8 +39,13 @@ public class JobSeekerListing implements Listing<JobSeeker> {
     }
 
     @Override
-    public Listing<JobSeeker> query(Query<JobSeeker> query, Object element) {
-        return query.query(jobSeekers, element);
+    public <A> Listing<JobSeeker> reduce(Reduction<JobSeeker, A> reduction, A element) {
+        return reduction.reduce(jobSeekers, element);
+    }
+
+    @Override
+    public <A> Listing<A> map(Map<JobSeeker, A> map, Listing<JobSeeker> data) {
+        return map.map(jobSeekers);
     }
 
 }

@@ -1,10 +1,11 @@
 package calisthenics.job;
 
 import calisthenics.interfaces.Listing;
-import calisthenics.interfaces.Query;
-import calisthenics.job.queries.JobsByRecruiter;
-import calisthenics.job.queries.JobsAppliedTo;
-import calisthenics.job.queries.SavedJobs;
+import calisthenics.interfaces.Map;
+import calisthenics.interfaces.Reduction;
+import calisthenics.job.reductions.JobsByRecruiter;
+import calisthenics.job.reductions.JobsAppliedTo;
+import calisthenics.job.reductions.SavedJobs;
 import calisthenics.jobseeker.JobSeeker;
 import calisthenics.recruiter.Recruiter;
 
@@ -23,15 +24,15 @@ public class JobListing implements Listing<Job> {
     }
 
     public JobListing jobsByRecruiterId(Recruiter recruiter) {
-       return (JobListing) query(new JobsByRecruiter(), recruiter);
+       return (JobListing) reduce(new JobsByRecruiter(), recruiter);
     }
 
     public JobListing savedJobs(JobSeeker jobSeeker) {
-        return (JobListing) query(new SavedJobs(), jobSeeker);
+        return (JobListing) reduce(new SavedJobs(), jobSeeker);
     }
 
     public JobListing jobsAppliedToBySeeker(JobSeeker jobSeeker) {
-        return (JobListing) query(new JobsAppliedTo(), jobSeeker);
+        return (JobListing) reduce(new JobsAppliedTo(), jobSeeker);
     }
 
     @Override
@@ -50,8 +51,13 @@ public class JobListing implements Listing<Job> {
     }
 
     @Override
-    public Listing<Job> query(Query<Job> query, Object element) {
-        return query.query(jobs, element);
+    public <A> Listing<Job> reduce(Reduction<Job,A> reduction, A element) {
+        return reduction.reduce(jobs, element);
+    }
+
+    @Override
+    public <A> Listing<A> map(Map<Job, A> map, Listing<Job> data) {
+        return map.map(jobs);
     }
 
     public static JobListing empty() {
