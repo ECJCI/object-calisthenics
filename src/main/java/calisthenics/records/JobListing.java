@@ -1,8 +1,9 @@
-package calisthenics.job;
+package calisthenics.records;
 
 import calisthenics.interfaces.Listing;
 import calisthenics.interfaces.Map;
 import calisthenics.interfaces.Reduction;
+import calisthenics.job.Job;
 import calisthenics.job.reductions.JobsByRecruiter;
 import calisthenics.job.reductions.JobsAppliedTo;
 import calisthenics.job.reductions.SavedJobs;

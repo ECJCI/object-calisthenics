@@ -1,9 +1,10 @@
-package calisthenics.jobseeker;
+package calisthenics.records;
 
 import calisthenics.interfaces.Listing;
 import calisthenics.interfaces.Map;
 import calisthenics.interfaces.Reduction;
 import calisthenics.job.Job;
+import calisthenics.jobseeker.JobSeeker;
 
 import java.util.Collection;
 import java.util.HashSet;

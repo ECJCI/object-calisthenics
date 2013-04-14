@@ -5,7 +5,7 @@ import calisthenics.application.maps.transformations.ApplicationToJobSeekersTran
 import calisthenics.interfaces.Listing;
 import calisthenics.interfaces.Map;
 import calisthenics.jobseeker.JobSeeker;
-import calisthenics.jobseeker.JobSeekerListing;
+import calisthenics.records.JobSeekerListing;
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 

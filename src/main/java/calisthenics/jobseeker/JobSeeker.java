@@ -1,19 +1,20 @@
 package calisthenics.jobseeker;
 
 import calisthenics.application.Application;
-import calisthenics.interfaces.NoResume;
-import calisthenics.interfaces.WithResume;
-import calisthenics.interfaces.ATS;
-import calisthenics.interfaces.JReq;
+import calisthenics.interfaces.*;
 import calisthenics.job.Job;
-import calisthenics.job.JobListing;
+import calisthenics.records.JobListing;
 import calisthenics.resume.Resume;
 
-public class JobSeeker {
-    private JobListing listing;
+import javax.lang.model.element.Name;
 
-    public JobSeeker(JobListing listing) {
+public class JobSeeker implements Displayable {
+    private JobListing listing;
+    private Name name;
+
+    public JobSeeker(JobListing listing, Name name) {
         this.listing = listing;
+        this.name = name;
     }
 
     public void saveJob(Job job) {
@@ -57,4 +58,8 @@ public class JobSeeker {
         return new Resume(this);
     }
 
+    @Override
+    public void display() {
+        System.out.print(name);
+    }
 }

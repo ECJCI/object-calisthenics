@@ -1,13 +1,14 @@
 package calisthenics.job;
 
 import calisthenics.application.Application;
-import calisthenics.application.ApplicationListing;
+import calisthenics.records.ApplicationListing;
 import calisthenics.interfaces.ATS;
 import calisthenics.interfaces.JReq;
 import calisthenics.jobseeker.JobSeeker;
-import calisthenics.jobseeker.JobSeekerListing;
+import calisthenics.records.JobSeekerListing;
 import calisthenics.recruiter.Recruiter;
 
+import javax.naming.Name;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -21,8 +22,9 @@ public class JobFactory {
 
         HashSet<JobSeeker> setOfSeekersWhoHaveSavedJobs = new HashSet<JobSeeker>();
         JobSeekerListing seekersWhoHaveSavedJob = new JobSeekerListing(setOfSeekersWhoHaveSavedJobs);
+        Title title = new Title("The best job");
 
-        JobInformation jobInformation = new JobInformation(recruiter, seekersWhoHaveSavedJob);
+        JobInformation jobInformation = new JobInformation(recruiter, seekersWhoHaveSavedJob, title);
         Job<ATS> job = new Job<ATS>(jobInformation, applicationListing);
 
         return job;
@@ -35,7 +37,8 @@ public class JobFactory {
         HashSet<JobSeeker> setOfSeekersWhoHaveSavedJobs = new HashSet<JobSeeker>();
         JobSeekerListing seekersWhoHaveSavedJob = new JobSeekerListing(setOfSeekersWhoHaveSavedJobs);
 
-        JobInformation jobInformation = new JobInformation(recruiter, seekersWhoHaveSavedJob);
+        Title title = new Title("Great Job");
+        JobInformation jobInformation = new JobInformation(recruiter, seekersWhoHaveSavedJob, title);
         Job<JReq> job = new Job<JReq>(jobInformation, applicationListing);
 
         return job;

@@ -3,18 +3,24 @@ package calisthenics.recruiter;
 import calisthenics.interfaces.ATS;
 import calisthenics.interfaces.JReq;
 import calisthenics.job.*;
-import calisthenics.jobseeker.JobSeekerListing;
+import calisthenics.interfaces.Displayable;
+import calisthenics.records.JobListing;
+import calisthenics.records.JobSeekerListing;
 
-public class Recruiter {
+import javax.naming.Name;
+
+public class Recruiter implements Displayable {
 
     private JobListing listing;
     private JobSeekerListing jobSeekerListing;
     private JobFactory jobFactory;
+    private Title name;
 
-    public Recruiter(JobListing listing, JobSeekerListing jobSeekerListing, JobFactory jobFactory) {
+    public Recruiter(JobListing listing, JobSeekerListing jobSeekerListing, JobFactory jobFactory, Title name) {
         this.listing = listing;
         this.jobSeekerListing = jobSeekerListing;
         this.jobFactory = jobFactory;
+        this.name = name;
     }
 
     public void post(Job job) {
@@ -41,4 +47,8 @@ public class Recruiter {
         return isJobListed ? seekersWhoHaveApplied  : emptyListing;
     }
 
+    @Override
+    public void display() {
+        System.out.print(name);
+    }
 }

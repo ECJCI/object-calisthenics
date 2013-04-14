@@ -3,7 +3,7 @@ package calisthenics.job.reductions;
 import calisthenics.interfaces.Listing;
 import calisthenics.interfaces.Reduction;
 import calisthenics.job.Job;
-import calisthenics.job.JobListing;
+import calisthenics.records.JobListing;
 import calisthenics.job.reductions.predicates.JobsThatHaveBeenSavedByJobSeeker;
 import calisthenics.jobseeker.JobSeeker;
 import com.google.common.base.Predicate;

@@ -1,12 +1,13 @@
 package calisthenics.jobseekers;
 
 import calisthenics.application.Application;
-import calisthenics.application.ApplicationListing;
+import calisthenics.records.ApplicationListing;
 import calisthenics.interfaces.ATS;
 import calisthenics.interfaces.JReq;
 import calisthenics.interfaces.NoResume;
 import calisthenics.job.*;
-import calisthenics.jobseeker.JobSeekerListing;
+import calisthenics.records.JobListing;
+import calisthenics.records.JobSeekerListing;
 import calisthenics.jobseeker.JobSeeker;
 import calisthenics.jobseeker.JobSeekerFactory;
 import calisthenics.recruiter.Recruiter;
@@ -50,7 +51,7 @@ public class JobSeekerTest {
         jobFactory = new JobFactory();
 
         //recruiter creates and posts a job
-        recruiter = new Recruiter(listing, jobSeekerListing, jobFactory);
+        recruiter = new Recruiter(listing, jobSeekerListing, jobFactory, new Title("Him"));
 
         //job jobSeeker listing
         HashSet<JobSeeker> setOfSeekersWhoHaveSavedJobs = new HashSet<JobSeeker>();
@@ -65,7 +66,7 @@ public class JobSeekerTest {
         jobSeekerListing = new JobSeekerListing(jobSeekers);
 
         jobSeekerFactory = new JobSeekerFactory(listing, jobSeekerListing);
-        jobSeeker = jobSeekerFactory.create();
+        jobSeeker = jobSeekerFactory.create(null);
         application = jobSeeker.createApplication();
     }
 

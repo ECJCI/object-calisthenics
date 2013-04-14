@@ -1,6 +1,9 @@
 package calisthenics.jobseeker;
 
-import calisthenics.job.JobListing;
+import calisthenics.records.JobListing;
+import calisthenics.records.JobSeekerListing;
+
+import javax.lang.model.element.Name;
 
 public class JobSeekerFactory {
     private JobListing jobListing;
@@ -11,8 +14,8 @@ public class JobSeekerFactory {
         this.jobSeekerListing = jobSeekerListing;
     }
 
-    public JobSeeker create() {
-        JobSeeker jobSeeker = new JobSeeker(jobListing);
+    public JobSeeker create(Name name) {
+        JobSeeker jobSeeker = new JobSeeker(jobListing, name);
         jobSeekerListing.add(jobSeeker);
         return jobSeeker;
     }

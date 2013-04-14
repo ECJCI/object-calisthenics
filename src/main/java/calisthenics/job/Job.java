@@ -1,10 +1,10 @@
 package calisthenics.job;
 
 import calisthenics.application.Application;
-import calisthenics.application.ApplicationListing;
+import calisthenics.records.ApplicationListing;
 import calisthenics.interfaces.JobType;
 import calisthenics.jobseeker.JobSeeker;
-import calisthenics.jobseeker.JobSeekerListing;
+import calisthenics.records.JobSeekerListing;
 import calisthenics.recruiter.Recruiter;
 
 public class Job<T extends JobType> {

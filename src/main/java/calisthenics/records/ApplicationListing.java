@@ -1,11 +1,11 @@
-package calisthenics.application;
+package calisthenics.records;
 
+import calisthenics.application.Application;
 import calisthenics.application.maps.ApplicationToJobSeekers;
 import calisthenics.application.reductions.SeekersWhoHaveAppliedForJob;
 import calisthenics.interfaces.Listing;
 import calisthenics.interfaces.Map;
 import calisthenics.interfaces.Reduction;
-import calisthenics.jobseeker.JobSeekerListing;
 import calisthenics.jobseeker.JobSeeker;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;

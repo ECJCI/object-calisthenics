@@ -1,14 +1,15 @@
 package calisthenics.recruiter;
 
 import calisthenics.application.Application;
-import calisthenics.application.ApplicationListing;
+import calisthenics.job.Title;
+import calisthenics.records.ApplicationListing;
 import calisthenics.interfaces.NoResume;
 import calisthenics.interfaces.ATS;
 import calisthenics.job.Job;
 import calisthenics.job.JobFactory;
-import calisthenics.job.JobListing;
+import calisthenics.records.JobListing;
 import calisthenics.jobseeker.JobSeekerFactory;
-import calisthenics.jobseeker.JobSeekerListing;
+import calisthenics.records.JobSeekerListing;
 import calisthenics.jobseeker.JobSeeker;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,6 +28,7 @@ public class RecruiterTest {
     private JobSeekerFactory jobSeekerFactory;
     private JobSeekerListing jobSeekerListing;
     private JobFactory jobFactory;
+    private Title title;
 
 
     @Before
@@ -39,14 +41,14 @@ public class RecruiterTest {
 
         HashSet<JobSeeker> jobSeekers = new HashSet<JobSeeker>();
         jobSeekerListing = new JobSeekerListing(jobSeekers);
-
+        title = new Title("Awesome Job");
         ApplicationListing applicationListing = new ApplicationListing(applications);
         jobSeekerFactory = new JobSeekerFactory(jobListing, jobSeekerListing);
     }
 
     @Test
     public void testRecruitersCanPostJobs() {
-        Recruiter recruiter = new Recruiter(jobListing, jobSeekerListing, jobFactory);
+        Recruiter recruiter = new Recruiter(jobListing, jobSeekerListing, jobFactory, title);
 
         Job job = recruiter.createATSJob();
         recruiter.post(job);
@@ -56,8 +58,8 @@ public class RecruiterTest {
     @Test
     public void testRecruitersShouldBeAbleToSeeAListingOfTheJobsTheyHavePosted(){
 
-        Recruiter firstRecruiter = new Recruiter(jobListing, jobSeekerListing, jobFactory);
-        Recruiter secondRecruiter = new Recruiter(jobListing, jobSeekerListing, jobFactory);
+        Recruiter firstRecruiter = new Recruiter(jobListing, jobSeekerListing, jobFactory,new Title("Him")) ;
+        Recruiter secondRecruiter = new Recruiter(jobListing, jobSeekerListing, jobFactory,new Title("Her"));
 
         Job job1 = firstRecruiter.createATSJob();
         Job job2 = secondRecruiter.createJReqJob();
@@ -74,8 +76,8 @@ public class RecruiterTest {
 
     @Test
     public void testRecruitersShouldBeAbleToSeeJobSeekersWhoHaveAppliedToTheirJobsByJob(){
-        Recruiter recruiter = new Recruiter(jobListing, jobSeekerListing, jobFactory);
-        JobSeeker jobSeeker = jobSeekerFactory.create();
+        Recruiter recruiter = new Recruiter(jobListing, jobSeekerListing, jobFactory, new Title("John"));
+        JobSeeker jobSeeker = jobSeekerFactory.create(null);
 
         Job<ATS> job = recruiter.createATSJob();
         recruiter.post(job);

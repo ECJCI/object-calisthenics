@@ -4,13 +4,11 @@ import calisthenics.interfaces.ApplicationType;
 import calisthenics.jobseeker.JobSeeker;
 import calisthenics.resume.Resume;
 
-;
-
 public class Application<T extends ApplicationType> {
     private JobSeeker jobSeeker;
     private Resume resume;
 
-    public Application(JobSeeker jobSeeker) {
+    public <NoResume> Application(JobSeeker jobSeeker) {
         this.jobSeeker = jobSeeker;
         this.resume = null;
     }
