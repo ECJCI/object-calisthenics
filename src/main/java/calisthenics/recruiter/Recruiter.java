@@ -1,8 +1,6 @@
 package calisthenics.recruiter;
 
-import calisthenics.job.Job;
-import calisthenics.job.JobFactory;
-import calisthenics.job.JobListing;
+import calisthenics.job.*;
 import calisthenics.jobseeker.JobSeekerListing;
 
 public class Recruiter {
@@ -25,8 +23,12 @@ public class Recruiter {
         return listing.jobsByRecruiterId(this);
     }
 
-    public Job createJob() {
-      return jobFactory.createJob(this);
+    public Job<ATS> createATSJob() {
+      return jobFactory.createATSJob(this);
+    }
+
+    public Job<JReq> createJReqJob() {
+        return jobFactory.createJReqJob(this);
     }
 
     public JobSeekerListing jobSeekersWhoHaveAppliedForJob(Job job) {

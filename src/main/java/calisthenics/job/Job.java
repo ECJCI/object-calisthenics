@@ -6,7 +6,7 @@ import calisthenics.jobseeker.JobSeeker;
 import calisthenics.jobseeker.JobSeekerListing;
 import calisthenics.recruiter.Recruiter;
 
-public class Job {
+public class Job<T extends JobType> {
     JobInformation jobInformation;
     private ApplicationListing applicationListing;
 

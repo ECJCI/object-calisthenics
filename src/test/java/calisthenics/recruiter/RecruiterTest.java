@@ -2,6 +2,8 @@ package calisthenics.recruiter;
 
 import calisthenics.application.Application;
 import calisthenics.application.ApplicationListing;
+import calisthenics.application.NoResume;
+import calisthenics.job.ATS;
 import calisthenics.job.Job;
 import calisthenics.job.JobFactory;
 import calisthenics.job.JobListing;
@@ -21,11 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 public class RecruiterTest {
 
-    private HashSet<Job> jobList;
-    private Job job;
     private JobListing jobListing;
-    private ApplicationListing applicationListing;
-    private Collection<Application> applications;
     private JobSeekerFactory jobSeekerFactory;
     private JobSeekerListing jobSeekerListing;
     private JobFactory jobFactory;
@@ -33,16 +31,16 @@ public class RecruiterTest {
 
     @Before
     public void setUp() {
-        jobList = new HashSet<Job>();
+        HashSet<Job> jobList = new HashSet<Job>();
         jobFactory = new JobFactory();
 
         jobListing = new JobListing(jobList);
-        applications = new ArrayList<Application>();
+        Collection<Application> applications = new ArrayList<Application>();
 
         HashSet<JobSeeker> jobSeekers = new HashSet<JobSeeker>();
         jobSeekerListing = new JobSeekerListing(jobSeekers);
 
-        applicationListing = new ApplicationListing(applications);
+        ApplicationListing applicationListing = new ApplicationListing(applications);
         jobSeekerFactory = new JobSeekerFactory(jobListing, jobSeekerListing);
     }
 
@@ -50,7 +48,7 @@ public class RecruiterTest {
     public void testRecruitersCanPostJobs() {
         Recruiter recruiter = new Recruiter(jobListing, jobSeekerListing, jobFactory);
 
-        job = recruiter.createJob();
+        Job job = recruiter.createATSJob();
         recruiter.post(job);
         assertTrue(jobListing.postCount() > 0);
     }
@@ -61,8 +59,8 @@ public class RecruiterTest {
         Recruiter firstRecruiter = new Recruiter(jobListing, jobSeekerListing, jobFactory);
         Recruiter secondRecruiter = new Recruiter(jobListing, jobSeekerListing, jobFactory);
 
-        Job job1 = firstRecruiter.createJob();
-        Job job2 = secondRecruiter.createJob();
+        Job job1 = firstRecruiter.createATSJob();
+        Job job2 = secondRecruiter.createJReqJob();
 
         firstRecruiter.post(job1);
         secondRecruiter.post(job2);
@@ -79,11 +77,11 @@ public class RecruiterTest {
         Recruiter recruiter = new Recruiter(jobListing, jobSeekerListing, jobFactory);
         JobSeeker jobSeeker = jobSeekerFactory.create();
 
-        Job job = recruiter.createJob();
+        Job<ATS> job = recruiter.createATSJob();
         recruiter.post(job);
 
-        Application application = jobSeeker.createApplication();
-        jobSeeker.applyToJob(job, application);
+        Application<NoResume> application = jobSeeker.createApplication();
+        jobSeeker.apply(job, application);
 
         JobSeekerListing jobSeekersWhoHaveAppliedToJob = recruiter.jobSeekersWhoHaveAppliedForJob(job);
         assertTrue(jobSeekersWhoHaveAppliedToJob.isListed(jobSeeker));

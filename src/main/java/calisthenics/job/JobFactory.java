@@ -15,7 +15,7 @@ import java.util.HashSet;
 
 public class JobFactory {
 
-    public Job createJob(Recruiter recruiter){
+    public Job<ATS> createATSJob(Recruiter recruiter){
         Collection<Application> applications = new ArrayList<Application>();
         ApplicationListing applicationListing = new ApplicationListing(applications);
 
@@ -23,8 +23,22 @@ public class JobFactory {
         JobSeekerListing seekersWhoHaveSavedJob = new JobSeekerListing(setOfSeekersWhoHaveSavedJobs);
 
         JobInformation jobInformation = new JobInformation(recruiter, seekersWhoHaveSavedJob);
-        Job job = new Job(jobInformation, applicationListing);
+        Job<ATS> job = new Job<ATS>(jobInformation, applicationListing);
 
         return job;
     }
+
+    public Job<JReq> createJReqJob(Recruiter recruiter){
+        Collection<Application> applications = new ArrayList<Application>();
+        ApplicationListing applicationListing = new ApplicationListing(applications);
+
+        HashSet<JobSeeker> setOfSeekersWhoHaveSavedJobs = new HashSet<JobSeeker>();
+        JobSeekerListing seekersWhoHaveSavedJob = new JobSeekerListing(setOfSeekersWhoHaveSavedJobs);
+
+        JobInformation jobInformation = new JobInformation(recruiter, seekersWhoHaveSavedJob);
+        Job<JReq> job = new Job<JReq>(jobInformation, applicationListing);
+
+        return job;
+    }
+
 }

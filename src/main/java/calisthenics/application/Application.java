@@ -1,12 +1,22 @@
 package calisthenics.application;
 
 import calisthenics.jobseeker.JobSeeker;
+import calisthenics.resume.Resume;
 
-public class Application {
+;
+
+public class Application<T extends ApplicationType> {
     private JobSeeker jobSeeker;
+    private Resume resume;
 
     public Application(JobSeeker jobSeeker) {
         this.jobSeeker = jobSeeker;
+        this.resume = null;
+    }
+
+    public <WithResume> Application(JobSeeker jobSeeker, Resume resume) {
+        this.jobSeeker = jobSeeker;
+        this.resume = resume;
     }
 
     public boolean createdBySeeker(JobSeeker jobSeeker) {

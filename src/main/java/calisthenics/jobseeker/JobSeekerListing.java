@@ -20,7 +20,7 @@ public class JobSeekerListing implements Listing<JobSeeker> {
     }
 
     public JobSeekerListing jobSeekersWhoHaveAppliedToJob(Job job){
-        return null;
+        return null ;
     }
 
     @Override

@@ -2,12 +2,11 @@ package calisthenics.jobseekers;
 
 import calisthenics.application.Application;
 import calisthenics.application.ApplicationListing;
-import calisthenics.job.Job;
-import calisthenics.job.JobListing;
+import calisthenics.application.NoResume;
+import calisthenics.job.*;
 import calisthenics.jobseeker.JobSeekerListing;
 import calisthenics.jobseeker.JobSeeker;
 import calisthenics.jobseeker.JobSeekerFactory;
-import calisthenics.job.JobFactory;
 import calisthenics.recruiter.Recruiter;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,11 +25,11 @@ public class JobSeekerTest {
     private JobListing savedJobsListing;
     private Recruiter recruiter;
     private JobSeeker jobSeeker;
-    private Job job;
+    private Job<ATS> job;
     private ApplicationListing applicationListing;
     private Collection<Application> applications;
     private JobSeekerListing seekersWhoHaveSavedJob;
-    private Application application;
+    private Application<NoResume> application;
     private JobSeekerFactory jobSeekerFactory;
     private JobSeekerListing jobSeekerListing;
     private JobSeekerListing seekerListing;
@@ -58,7 +57,7 @@ public class JobSeekerTest {
         applications = new ArrayList<Application>();
         applicationListing = new ApplicationListing(applications);
 
-        job = recruiter.createJob();
+        job = recruiter.createATSJob();
 
         HashSet<JobSeeker> jobSeekers = new HashSet<JobSeeker>();
         jobSeekerListing = new JobSeekerListing(jobSeekers);
@@ -79,10 +78,10 @@ public class JobSeekerTest {
 
     @Test
     public void testJobSeekersCanApplyToJobsPostedByRecruiters(){
-       Application application = jobSeeker.createApplication();
+       Application<NoResume> application = jobSeeker.createApplication();
        recruiter.post(job);
 
-       jobSeeker.applyToJob(job, application);
+       jobSeeker.apply(job, application);
        assertTrue(job.hasApplication(application));
     }
 
@@ -97,15 +96,15 @@ public class JobSeekerTest {
 
     @Test
     public void testJobSeekersShouldBeAbleToSeeAListingOfTheJobsForWhichTheyHaveApplied(){
-        Job jobAppliedTo = job;
-        Job jobNotAppliedTo = recruiter.createJob();
+        Job<ATS> jobAppliedTo = job;
+        Job<JReq> jobNotAppliedTo = recruiter.createJReqJob();
 
         //recruiter posts a job
         recruiter.post(jobAppliedTo);
         recruiter.post(jobNotAppliedTo);
 
         //jobSeeker applies to job
-        jobSeeker.applyToJob(jobAppliedTo, application);
+        jobSeeker.apply(jobAppliedTo, application);
 
         //jobSeeker gets a listing of jobs applied to
         JobListing jobsAppliedTo = jobSeeker.jobsAppliedTo();
