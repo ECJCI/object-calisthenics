@@ -1,3 +1,3 @@
-package calisthenics.application;
+package calisthenics.interfaces;
 
 public interface ApplicationType{}

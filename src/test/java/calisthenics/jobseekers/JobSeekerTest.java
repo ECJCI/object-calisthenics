@@ -2,7 +2,9 @@ package calisthenics.jobseekers;
 
 import calisthenics.application.Application;
 import calisthenics.application.ApplicationListing;
-import calisthenics.application.NoResume;
+import calisthenics.interfaces.ATS;
+import calisthenics.interfaces.JReq;
+import calisthenics.interfaces.NoResume;
 import calisthenics.job.*;
 import calisthenics.jobseeker.JobSeekerListing;
 import calisthenics.jobseeker.JobSeeker;

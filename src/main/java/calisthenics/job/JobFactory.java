@@ -2,8 +2,8 @@ package calisthenics.job;
 
 import calisthenics.application.Application;
 import calisthenics.application.ApplicationListing;
-import calisthenics.job.Job;
-import calisthenics.job.JobInformation;
+import calisthenics.interfaces.ATS;
+import calisthenics.interfaces.JReq;
 import calisthenics.jobseeker.JobSeeker;
 import calisthenics.jobseeker.JobSeekerListing;
 import calisthenics.recruiter.Recruiter;

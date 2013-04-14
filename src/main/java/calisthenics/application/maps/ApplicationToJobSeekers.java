@@ -15,7 +15,7 @@ public class ApplicationToJobSeekers implements Map<Application, JobSeeker> {
 
     @Override
     public Listing<JobSeeker> map(Collection<Application> applications) {
-        Function applicationsToSeeker = new ApplicationToJobSeekersTransFormation();
+        Function<Application, JobSeeker> applicationsToSeeker = new ApplicationToJobSeekersTransFormation();
         Collection<JobSeeker> result = Collections2.transform(applications, applicationsToSeeker);
         return new JobSeekerListing(result);
     }

@@ -1,5 +1,7 @@
 package calisthenics.recruiter;
 
+import calisthenics.interfaces.ATS;
+import calisthenics.interfaces.JReq;
 import calisthenics.job.*;
 import calisthenics.jobseeker.JobSeekerListing;
 

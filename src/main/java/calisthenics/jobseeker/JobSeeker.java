@@ -1,10 +1,10 @@
 package calisthenics.jobseeker;
 
 import calisthenics.application.Application;
-import calisthenics.application.NoResume;
-import calisthenics.application.WithResume;
-import calisthenics.job.ATS;
-import calisthenics.job.JReq;
+import calisthenics.interfaces.NoResume;
+import calisthenics.interfaces.WithResume;
+import calisthenics.interfaces.ATS;
+import calisthenics.interfaces.JReq;
 import calisthenics.job.Job;
 import calisthenics.job.JobListing;
 import calisthenics.resume.Resume;

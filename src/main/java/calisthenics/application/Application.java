@@ -1,5 +1,6 @@
 package calisthenics.application;
 
+import calisthenics.interfaces.ApplicationType;
 import calisthenics.jobseeker.JobSeeker;
 import calisthenics.resume.Resume;
 
